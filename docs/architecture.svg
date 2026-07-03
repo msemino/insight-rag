@@ -1,0 +1,89 @@
+<svg viewBox="0 0 1040 600" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arw" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#4aa3df"/>
+    </marker>
+    <style>
+      .box{fill:#18212b;stroke:#2a3a47;stroke-width:1.5;rx:10;}
+      .accent{fill:#18212b;stroke:#4aa3df;stroke-width:1.8;}
+      .warn{fill:#18212b;stroke:#e0a54a;stroke-width:1.8;}
+      .t{fill:#e6edf3;font-size:15px;font-weight:600;}
+      .s{fill:#8b98a5;font-size:11.5px;}
+      .lbl{fill:#4aa3df;font-size:11px;font-weight:700;letter-spacing:.5px;}
+      .flow{stroke:#4aa3df;stroke-width:2;fill:none;marker-end:url(#arw);}
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1040" height="600" fill="#0f1720"/>
+  <text x="30" y="42" fill="#e6edf3" font-size="24" font-weight="700">InsightRAG</text>
+  <text x="30" y="64" class="s" font-size="13">Self-hosted, local-first customer-insight RAG for regulated domains</text>
+
+  <!-- Query -->
+  <rect class="accent" x="30" y="110" width="150" height="70" rx="10"/>
+  <text x="105" y="140" class="t" text-anchor="middle">HCP query</text>
+  <text x="105" y="160" class="s" text-anchor="middle">professional / internal</text>
+
+  <!-- API -->
+  <rect class="accent" x="230" y="110" width="170" height="70" rx="10"/>
+  <text x="315" y="138" class="t" text-anchor="middle">FastAPI</text>
+  <text x="315" y="158" class="s" text-anchor="middle">versioned endpoints</text>
+  <text x="315" y="172" class="s" text-anchor="middle">model+prompt ver / request</text>
+
+  <!-- Retrieval: vector -->
+  <text x="470" y="95" class="lbl">HYBRID RETRIEVAL</text>
+  <rect class="box" x="450" y="105" width="210" height="76" rx="10"/>
+  <text x="555" y="132" class="t" text-anchor="middle">Vector search</text>
+  <text x="555" y="151" class="s" text-anchor="middle">Qdrant + nomic-embed</text>
+  <text x="555" y="167" class="s" text-anchor="middle">chunk retrieval</text>
+
+  <!-- Retrieval: graph -->
+  <rect class="box" x="450" y="200" width="210" height="76" rx="10"/>
+  <text x="555" y="227" class="t" text-anchor="middle">Knowledge graph</text>
+  <text x="555" y="246" class="s" text-anchor="middle">networkx · GraphRAG</text>
+  <text x="555" y="262" class="s" text-anchor="middle">entity link + rerank</text>
+
+  <!-- Compliance prompt -->
+  <rect class="warn" x="710" y="105" width="180" height="90" rx="10"/>
+  <text x="800" y="134" class="t" text-anchor="middle">Compliance</text>
+  <text x="800" y="152" class="t" text-anchor="middle">prompt layer</text>
+  <text x="800" y="171" class="s" text-anchor="middle">on-label · fair balance</text>
+  <text x="800" y="186" class="s" text-anchor="middle">scoped off-label refusal</text>
+
+  <!-- LLM -->
+  <rect class="accent" x="710" y="240" width="300" height="96" rx="10"/>
+  <text x="860" y="268" class="t" text-anchor="middle">Local LLM — RTX 3090</text>
+  <text x="860" y="288" class="s" text-anchor="middle">Qwen3.6 via Ollama  ·  local-first</text>
+  <text x="860" y="305" class="s" text-anchor="middle">+ domain LoRA adapter (bf16, trained)</text>
+  <text x="860" y="321" class="s" text-anchor="middle">+ frontier fallback on-demand</text>
+
+  <!-- Answer -->
+  <rect class="accent" x="710" y="360" width="300" height="66" rx="10"/>
+  <text x="860" y="388" class="t" text-anchor="middle">Grounded, cited answer</text>
+  <text x="860" y="408" class="s" text-anchor="middle">source-attributed · audit-ready</text>
+
+  <!-- Observability bar -->
+  <text x="30" y="475" class="lbl">OBSERVABILITY — every request traced</text>
+  <rect class="box" x="30" y="485" width="980" height="86" rx="10"/>
+  <rect class="box" x="50" y="505" width="220" height="48" rx="8"/>
+  <text x="160" y="525" class="t" text-anchor="middle" font-size="13">Trace store (JSONL)</text>
+  <text x="160" y="542" class="s" text-anchor="middle">latency · tokens · retrieval hits</text>
+  <rect class="box" x="290" y="505" width="220" height="48" rx="8"/>
+  <text x="400" y="525" class="t" text-anchor="middle" font-size="13">Metrics</text>
+  <text x="400" y="542" class="s" text-anchor="middle">p50 / p95 · error rate</text>
+  <rect class="box" x="530" y="505" width="220" height="48" rx="8"/>
+  <text x="640" y="525" class="t" text-anchor="middle" font-size="13">Compliance eval</text>
+  <text x="640" y="542" class="s" text-anchor="middle">golden set · CI-gated</text>
+  <rect class="box" x="770" y="505" width="220" height="48" rx="8"/>
+  <text x="880" y="525" class="t" text-anchor="middle" font-size="13">Dashboard</text>
+  <text x="880" y="542" class="s" text-anchor="middle">HTML · Langfuse-exportable</text>
+
+  <!-- Flows -->
+  <path class="flow" d="M180,145 L226,145"/>
+  <path class="flow" d="M400,140 L446,140"/>
+  <path class="flow" d="M400,155 C420,155 425,235 446,235"/>
+  <path class="flow" d="M660,143 L706,145"/>
+  <path class="flow" d="M660,235 C685,235 685,175 706,165"/>
+  <path class="flow" d="M800,195 L800,236"/>
+  <path class="flow" d="M860,336 L860,356"/>
+  <path class="flow" d="M315,180 C315,300 40,360 40,481" stroke-dasharray="4 4"/>
+</svg>
