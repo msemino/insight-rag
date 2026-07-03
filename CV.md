@@ -73,11 +73,15 @@ running entirely on a single RTX 3090.
   compliance/medical stakeholder can review.
 - **Local-first, frontier on-demand**: backend-agnostic call path resolves locally
   and escalates only on evidence of insufficiency.
-- **Validated on a simulated HCP knowledge base** with reproducible demo cases:
-  grounded product facts with fair balance, cross-document retrieval, off-label
-  scoped refusal, and honest "not in sources" behavior.
-- *In progress:* GraphRAG reranking (Neo4j), domain LoRA adapter (unsloth),
-  versioned FastAPI endpoints with GitHub Actions CI/CD.
+- **Hybrid GraphRAG**: a typed knowledge graph (products, classes, indications,
+  reversal agents) is queried alongside vector search — structured triples plus
+  reranked passages — for exact relations dense retrieval alone can miss.
+- **MLOps**: versioned FastAPI endpoints exposing model + prompt version per
+  response; offline unit tests; GitHub Actions CI (green).
+- **Validated** on a simulated HCP knowledge base with reproducible demo cases and
+  a compliance eval harness (grounding, fair balance, off-label refusal, honesty).
+- **Fine-tuning pipeline ready**: instruction dataset built from the corpus + a
+  LoRA/QLoRA training script (unsloth) sized for the RTX 3090.
 
 ### AI Platform Lab — LLM Engineer & Operator *(2024–Present)*
 *Self-hosted production AI · github.com/msemino*
