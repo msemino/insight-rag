@@ -12,6 +12,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from app.llm import chat            # noqa: E402
 from app.rag.store import search    # noqa: E402
+from app.obs.tracing import log_trace  # noqa: E402
 
 _ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROMPT_VERSION = "compliance_system_v1"
@@ -27,19 +28,23 @@ def answer(question: str, k: int = 4) -> dict:
     context = "\n\n".join(f"[{h['source']}]\n{h['text']}" for h in hits)
     system = _load_prompt().replace("{context}", context)
     result = chat(system=system, user=question)
-    return {
+    trace = {
+        "prompt_version": PROMPT_VERSION,
+        "retrieval": [{"source": h["source"], "score": h["score"]} for h in hits],
+        "top_score": hits[0]["score"] if hits else None,
+        "model": result["model"],
+        "latency_ms": result["latency_ms"],
+        "prompt_tokens": result["prompt_tokens"],
+        "completion_tokens": result["completion_tokens"],
+    }
+    out = {
         "question": question,
         "answer": result["text"],
         "sources": [h["source"] for h in hits],
-        "trace": {
-            "prompt_version": PROMPT_VERSION,
-            "retrieval": [{"source": h["source"], "score": h["score"]} for h in hits],
-            "model": result["model"],
-            "latency_ms": result["latency_ms"],
-            "prompt_tokens": result["prompt_tokens"],
-            "completion_tokens": result["completion_tokens"],
-        },
+        "trace": trace,
     }
+    log_trace(question, result["text"], trace)
+    return out
 
 
 if __name__ == "__main__":
