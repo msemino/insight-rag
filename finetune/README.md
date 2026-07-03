@@ -31,6 +31,17 @@ After training, merge or load the adapter and expose it through Ollama
 (`ollama create` from the GGUF export) or vLLM, then point `INSIGHT_MODEL` at it.
 The rest of the stack is backend-agnostic and needs no code change.
 
-## Status
-- Dataset generation: **done** (12 examples, extend by adding corpus docs).
-- Training script: **ready**; execute on the WSL2/Linux 3090 toolchain.
+## Two paths
+- **`train_lora.py`** — 4-bit QLoRA via **unsloth** (Linux/WSL2 toolchain).
+- **`train_lora_win.py`** — bf16 LoRA via torch + transformers + peft + trl,
+  **runs natively on Windows / RTX 3090** (no Triton, no bitsandbytes). This is the
+  one actually executed. See [`AB_RESULT.md`](AB_RESULT.md).
+
+  > Native-Windows gotcha: importing `datasets` (pyarrow) *after* torch crashes the
+  > process — import `datasets` first. Handled at the top of `train_lora_win.py`.
+
+## Status — DONE
+- Dataset generation: **done** (12 examples).
+- Adapter: **trained on the RTX 3090** (bf16 LoRA rank 16, Qwen2.5-3B, ~77 s).
+  A/B vs. base with a one-line prompt shows the compliance style held. See
+  [`AB_RESULT.md`](AB_RESULT.md).

@@ -8,4 +8,9 @@ app/obs/dashboard.html
 app/obs/metrics.json
 app/obs/eval_report.json
 finetune/_runs/
-finetune/adapter/
+finetune/*.out
+finetune/*.err
+# Track the adapter config + card as evidence, but not the large weights/tokenizer
+finetune/adapter/*
+!finetune/adapter/adapter_config.json
+!finetune/adapter/README.md

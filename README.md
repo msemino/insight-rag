@@ -50,7 +50,7 @@ clinical documents — no sensitive data.
 | **Observability** | Per-query trace store, latency/token/error metrics, compliance eval harness (4/4), HTML dashboard | ✅ done |
 | **Knowledge graph** | networkx entity/relation graph + hybrid GraphRAG (vector + graph expansion + rerank); Neo4j-ready schema | ✅ done |
 | **MLOps** | Versioned FastAPI endpoints (model+prompt version per response), offline unit tests, GitHub Actions CI | ✅ done |
-| **Fine-tuning** | Domain LoRA/QLoRA pipeline (dataset generated + unsloth training script); training runs on the RTX 3090 via WSL2/Linux | pipeline ready |
+| **Fine-tuning** | Domain compliance **LoRA adapter trained on the RTX 3090** (bf16, rank 16, native Windows); A/B shows scoped off-label refusal held with a one-line prompt | ✅ done |
 | **Compliance** | Versioned system prompts + guardrails; scoped off-label refusal to cut false positives | ✅ ongoing |
 
 ## Run it
