@@ -1,0 +1,225 @@
+{
+  "nodes": [
+    {
+      "id": "Jardiance",
+      "type": "Product",
+      "source": "jardiance.md"
+    },
+    {
+      "id": "empagliflozin",
+      "type": "Generic"
+    },
+    {
+      "id": "SGLT2 inhibitor",
+      "type": "DrugClass"
+    },
+    {
+      "id": "Boehringer Ingelheim / Eli Lilly alliance",
+      "type": "Manufacturer"
+    },
+    {
+      "id": "Type 2 diabetes mellitus",
+      "type": "Indication"
+    },
+    {
+      "id": "Heart failure (both reduced and preserved ejection fraction) to reduce risk",
+      "type": "Indication"
+    },
+    {
+      "id": "Chronic kidney disease to reduce risk of progression",
+      "type": "Indication"
+    },
+    {
+      "id": "Ofev",
+      "type": "Product",
+      "source": "ofev.md"
+    },
+    {
+      "id": "nintedanib",
+      "type": "Generic"
+    },
+    {
+      "id": "Intracellular tyrosine kinase inhibitor",
+      "type": "DrugClass"
+    },
+    {
+      "id": "Boehringer Ingelheim",
+      "type": "Manufacturer"
+    },
+    {
+      "id": "Idiopathic pulmonary fibrosis (IPF)",
+      "type": "Indication"
+    },
+    {
+      "id": "Other chronic fibrosing interstitial lung diseases with a progressive phenotype",
+      "type": "Indication"
+    },
+    {
+      "id": "Systemic sclerosis-associated interstitial lung disease (SSc-ILD)",
+      "type": "Indication"
+    },
+    {
+      "id": "Pradaxa",
+      "type": "Product",
+      "source": "pradaxa.md"
+    },
+    {
+      "id": "dabigatran etexilate",
+      "type": "Generic"
+    },
+    {
+      "id": "Direct oral anticoagulant",
+      "type": "DrugClass"
+    },
+    {
+      "id": "Stroke prevention in non-valvular atrial fibrillation",
+      "type": "Indication"
+    },
+    {
+      "id": "Treatment and secondary prevention of deep vein thrombosis and pulmonary embolism",
+      "type": "Indication"
+    },
+    {
+      "id": "Idarucizumab",
+      "type": "ReversalAgent"
+    },
+    {
+      "id": "Spiriva",
+      "type": "Product",
+      "source": "spiriva.md"
+    },
+    {
+      "id": "tiotropium",
+      "type": "Generic"
+    },
+    {
+      "id": "Long-acting muscarinic antagonist",
+      "type": "DrugClass"
+    },
+    {
+      "id": "Chronic obstructive pulmonary disease (COPD)",
+      "type": "Indication"
+    },
+    {
+      "id": "Asthma",
+      "type": "Indication"
+    }
+  ],
+  "triples": [
+    {
+      "s": "Jardiance",
+      "rel": "HAS_GENERIC",
+      "o": "empagliflozin"
+    },
+    {
+      "s": "Jardiance",
+      "rel": "HAS_CLASS",
+      "o": "SGLT2 inhibitor"
+    },
+    {
+      "s": "Jardiance",
+      "rel": "MADE_BY",
+      "o": "Boehringer Ingelheim / Eli Lilly alliance"
+    },
+    {
+      "s": "Jardiance",
+      "rel": "INDICATED_FOR",
+      "o": "Type 2 diabetes mellitus"
+    },
+    {
+      "s": "Jardiance",
+      "rel": "INDICATED_FOR",
+      "o": "Heart failure (both reduced and preserved ejection fraction) to reduce risk"
+    },
+    {
+      "s": "Jardiance",
+      "rel": "INDICATED_FOR",
+      "o": "Chronic kidney disease to reduce risk of progression"
+    },
+    {
+      "s": "Ofev",
+      "rel": "HAS_GENERIC",
+      "o": "nintedanib"
+    },
+    {
+      "s": "Ofev",
+      "rel": "HAS_CLASS",
+      "o": "Intracellular tyrosine kinase inhibitor"
+    },
+    {
+      "s": "Ofev",
+      "rel": "MADE_BY",
+      "o": "Boehringer Ingelheim"
+    },
+    {
+      "s": "Ofev",
+      "rel": "INDICATED_FOR",
+      "o": "Idiopathic pulmonary fibrosis (IPF)"
+    },
+    {
+      "s": "Ofev",
+      "rel": "INDICATED_FOR",
+      "o": "Other chronic fibrosing interstitial lung diseases with a progressive phenotype"
+    },
+    {
+      "s": "Ofev",
+      "rel": "INDICATED_FOR",
+      "o": "Systemic sclerosis-associated interstitial lung disease (SSc-ILD)"
+    },
+    {
+      "s": "Pradaxa",
+      "rel": "HAS_GENERIC",
+      "o": "dabigatran etexilate"
+    },
+    {
+      "s": "Pradaxa",
+      "rel": "HAS_CLASS",
+      "o": "Direct oral anticoagulant"
+    },
+    {
+      "s": "Pradaxa",
+      "rel": "MADE_BY",
+      "o": "Boehringer Ingelheim"
+    },
+    {
+      "s": "Pradaxa",
+      "rel": "INDICATED_FOR",
+      "o": "Stroke prevention in non-valvular atrial fibrillation"
+    },
+    {
+      "s": "Pradaxa",
+      "rel": "INDICATED_FOR",
+      "o": "Treatment and secondary prevention of deep vein thrombosis and pulmonary embolism"
+    },
+    {
+      "s": "Pradaxa",
+      "rel": "REVERSED_BY",
+      "o": "Idarucizumab"
+    },
+    {
+      "s": "Spiriva",
+      "rel": "HAS_GENERIC",
+      "o": "tiotropium"
+    },
+    {
+      "s": "Spiriva",
+      "rel": "HAS_CLASS",
+      "o": "Long-acting muscarinic antagonist"
+    },
+    {
+      "s": "Spiriva",
+      "rel": "MADE_BY",
+      "o": "Boehringer Ingelheim"
+    },
+    {
+      "s": "Spiriva",
+      "rel": "INDICATED_FOR",
+      "o": "Chronic obstructive pulmonary disease (COPD)"
+    },
+    {
+      "s": "Spiriva",
+      "rel": "INDICATED_FOR",
+      "o": "Asthma"
+    }
+  ]
+}

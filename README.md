@@ -46,12 +46,26 @@ clinical documents — no sensitive data.
 
 | Area | What it does | Status |
 |---|---|---|
-| **RAG** | Vector store (Qdrant), chunking, hybrid retrieval | wk1 |
-| **Observability** | Per-query traces, latency/cost/error dashboards, eval harness | wk2 |
-| **Knowledge graph** | Neo4j entity/relation store, GraphRAG hybrid answers | wk3 |
-| **Fine-tuning** | Domain LoRA/QLoRA adapter (unsloth) with a custom dataset | wk4 |
-| **MLOps** | Versioned model+prompt endpoints, CI/CD (GitHub Actions) | wk4 |
-| **Compliance** | Versioned system prompts + guardrails to cut false positives | ongoing |
+| **RAG** | Vector store (Qdrant), chunking, dense retrieval | ✅ done |
+| **Observability** | Per-query trace store, latency/token/error metrics, compliance eval harness (4/4), HTML dashboard | ✅ done |
+| **Knowledge graph** | networkx entity/relation graph + hybrid GraphRAG (vector + graph expansion + rerank); Neo4j-ready schema | ✅ done |
+| **MLOps** | Versioned FastAPI endpoints (model+prompt version per response), offline unit tests, GitHub Actions CI | ✅ done |
+| **Fine-tuning** | Domain LoRA/QLoRA pipeline (dataset generated + unsloth training script); training runs on the RTX 3090 via WSL2/Linux | pipeline ready |
+| **Compliance** | Versioned system prompts + guardrails; scoped off-label refusal to cut false positives | ✅ ongoing |
+
+## Run it
+
+```bash
+pip install -r requirements.txt          # + Ollama with a chat model & nomic-embed-text
+python -m app.rag.store                  # ingest corpus -> Qdrant
+python demo_cases.py                     # 4 compliance demo cases
+python -m app.graph.kg                   # build knowledge graph
+python -m app.graph.hybrid "What class is Jardiance and what is it indicated for?"
+python -m app.obs.evaluate               # compliance eval harness (CI-style)
+python -m app.obs.dashboard              # render observability dashboard
+python tests/test_core.py                # offline unit tests (what CI runs)
+uvicorn app.api:app --port 8100          # versioned inference API
+```
 
 ## Design principles
 

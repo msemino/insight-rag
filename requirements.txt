@@ -1,0 +1,8 @@
+# Core RAG + graph + API. LLM + embeddings served by local Ollama (no SDK dep).
+qdrant-client
+networkx
+fastapi
+uvicorn
+pydantic
+# Fine-tuning (optional, GPU): see finetune/README.md
+# unsloth

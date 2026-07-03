@@ -7,3 +7,5 @@ app/obs/traces.jsonl
 app/obs/dashboard.html
 app/obs/metrics.json
 app/obs/eval_report.json
+finetune/_runs/
+finetune/adapter/
