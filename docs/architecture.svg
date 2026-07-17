@@ -51,7 +51,7 @@
 
   <!-- LLM -->
   <rect class="accent" x="710" y="240" width="300" height="96" rx="10"/>
-  <text x="860" y="268" class="t" text-anchor="middle">Local LLM — RTX 3090</text>
+  <text x="860" y="268" class="t" text-anchor="middle">Local LLM — 24 GB GPU</text>
   <text x="860" y="288" class="s" text-anchor="middle">Qwen3.6 via Ollama  ·  local-first</text>
   <text x="860" y="305" class="s" text-anchor="middle">+ domain LoRA adapter (bf16, trained)</text>
   <text x="860" y="321" class="s" text-anchor="middle">+ frontier fallback on-demand</text>

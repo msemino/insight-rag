@@ -1,6 +1,6 @@
 # LoRA adapter — A/B result
 
-Real training run on an **RTX 3090 (24 GB)**, native Windows, bf16 LoRA (rank 16)
+Real training run on a **single 24 GB NVIDIA GPU**, native Windows, bf16 LoRA (rank 16)
 on `Qwen2.5-3B-Instruct`. 8 epochs / 16 steps in **~77 s**. Loss 1.87 → ~0.6,
 mean token accuracy 0.77 → 0.85.
 

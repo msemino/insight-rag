@@ -9,11 +9,11 @@ prompt. RAG still supplies the facts; the adapter supplies the behavior.
 1. `python finetune/make_dataset.py` → builds `dataset.jsonl` (chat format) from
    the corpus + knowledge graph. **Runs anywhere, no GPU.** ✅
 2. `python finetune/train_lora.py` → 4-bit base + LoRA rank 16, sized for a
-   single RTX 3090 (24 GB). Saves the adapter to `finetune/adapter/`.
+   single 24 GB NVIDIA GPU. Saves the adapter to `finetune/adapter/`.
 
 ## Hardware / toolchain
 Training uses **unsloth**, whose kernels (Triton, xformers) target **Linux/CUDA**.
-On the RTX 3090 host (Windows 11) run training under **WSL2** or a Linux boot with
+On the GPU host (Windows 11) run training under **WSL2** or a Linux boot with
 the GPU passed through:
 
 ```bash
@@ -34,7 +34,7 @@ The rest of the stack is backend-agnostic and needs no code change.
 ## Two paths
 - **`train_lora.py`** — 4-bit QLoRA via **unsloth** (Linux/WSL2 toolchain).
 - **`train_lora_win.py`** — bf16 LoRA via torch + transformers + peft + trl,
-  **runs natively on Windows / RTX 3090** (no Triton, no bitsandbytes). This is the
+  **runs natively on Windows with a 24 GB NVIDIA GPU** (no Triton, no bitsandbytes). This is the
   one actually executed. See [`AB_RESULT.md`](AB_RESULT.md).
 
   > Native-Windows gotcha: importing `datasets` (pyarrow) *after* torch crashes the
@@ -42,6 +42,6 @@ The rest of the stack is backend-agnostic and needs no code change.
 
 ## Status — DONE
 - Dataset generation: **done** (12 examples).
-- Adapter: **trained on the RTX 3090** (bf16 LoRA rank 16, Qwen2.5-3B, ~77 s).
+- Adapter: **trained on a single 24 GB GPU** (bf16 LoRA rank 16, Qwen2.5-3B, ~77 s).
   A/B vs. base with a one-line prompt shows the compliance style held. See
   [`AB_RESULT.md`](AB_RESULT.md).

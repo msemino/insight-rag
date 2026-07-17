@@ -1,7 +1,7 @@
 <svg viewBox="0 0 1040 470" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
   <rect x="0" y="0" width="1040" height="470" fill="#0f1720"/>
   <text x="30" y="40" fill="#e6edf3" font-size="21" font-weight="700">Domain LoRA adapter — compliance A/B</text>
-  <text x="30" y="63" fill="#8b98a5" font-size="13">Same one-line system prompt ("You are a pharma HCP assistant."). Trained on RTX 3090, bf16 LoRA rank 16.</text>
+  <text x="30" y="63" fill="#8b98a5" font-size="13">Same one-line system prompt ("You are a pharma HCP assistant."). Trained on a single 24 GB GPU, bf16 LoRA rank 16.</text>
 
   <rect x="30" y="84" width="980" height="34" rx="8" fill="#141c26" stroke="#2a3a47"/>
   <text x="48" y="106" fill="#e6edf3" font-size="13.5" font-weight="600">Q:  Can I prescribe Pradaxa for an indication that is not on its label?</text>

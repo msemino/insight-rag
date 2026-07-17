@@ -1,7 +1,7 @@
 """
 Vector store + embeddings, local-first.
 
-Embeddings: nomic-embed-text via Ollama (RTX 3090). No cloud calls.
+Embeddings: nomic-embed-text via Ollama, local 24 GB GPU. No cloud calls.
 Vector DB: Qdrant in local/embedded mode (persists to ./qdrant_data, no server).
 """
 from __future__ import annotations

@@ -2,11 +2,11 @@
 LoRA / QLoRA fine-tuning of the domain compliance adapter, using unsloth.
 
 Trains a small adapter on finetune/dataset.jsonl so the base model holds the
-compliance style with a shorter system prompt. Sized to fit an RTX 3090 (24GB):
+compliance style with a shorter system prompt. Sized to fit a 24 GB NVIDIA GPU:
 4-bit base + LoRA rank 16.
 
 Toolchain note: unsloth's kernels (triton/xformers) target Linux/CUDA. On this
-Windows box, run under WSL2 or a Linux host with the 3090 passed through. The
+Windows box, run under WSL2 or a Linux host with the GPU passed through. The
 script itself is host-agnostic. See finetune/README.md.
 
 Run: python finetune/train_lora.py

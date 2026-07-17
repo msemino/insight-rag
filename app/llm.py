@@ -1,5 +1,5 @@
 """
-Cliente LLM local-first (Ollama / RTX 3090) con hook de observabilidad.
+Cliente LLM local-first (Ollama, GPU local de 24 GB) con hook de observabilidad.
 
 Diseñado backend-agnostico: el mismo `chat()` puede apuntar a Ollama local
 o a un endpoint frontier via variable de entorno, siguiendo la tesis

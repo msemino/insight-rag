@@ -7,7 +7,7 @@
 A compact, production-shaped implementation of everything a regulated-industry AI
 product actually needs — RAG, a knowledge graph, compliance-aligned prompting,
 full observability, a trained domain adapter, and a versioned deployment — all
-running on a single **RTX 3090**.
+running on a single **24 GB NVIDIA GPU**.
 
 [![CI](https://github.com/msemino/insight-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/msemino/insight-rag/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.13-blue)
@@ -38,13 +38,48 @@ information — no sensitive data.
 
 ## What's inside
 
+## Request path
+
+Two endpoints. `/answer` is dense retrieval; `/graph-answer` links the entities named in
+the question, expands their 1-hop neighbourhood into typed facts, and reranks passages
+that come from a matched product's document.
+
+```mermaid
+flowchart LR
+    Q([question · k=4]) --> S[vector search<br/>Qdrant · hcp_kb · 768d]
+    Q -.->|/graph-answer only| L[link entities<br/>substring · len ≥ 4]
+    L --> F[graph facts<br/>1-hop · typed triples]
+    S -->|/answer| C[context<br/>facts + passages]
+    S -.->|/graph-answer only| R[rerank<br/>+0.15 if product doc]
+    F -.-> C
+    R -.-> C
+    C --> M[local LLM<br/>Ollama · Modelfile]
+    M --> T[(trace<br/>JSONL → p50/p95)]
+```
+
+| Node | Code |
+|---|---|
+| link entities | [`app/graph/hybrid.py`](app/graph/hybrid.py) — `_link_entities()`: `name.lower() in query.lower()`, gated at `len(name) >= 4` |
+| graph facts | `_graph_facts()` — 1-hop over `app/graph/kg.json`; relations `HAS_GENERIC`, `HAS_CLASS`, `MADE_BY`, `INDICATED_FOR`, `REVERSED_BY` |
+| vector search | [`app/rag/store.py`](app/rag/store.py) — Qdrant embedded, collection `hcp_kb`, `nomic-embed-text` (768d) |
+| rerank | `_rerank()` — `score + 0.15` when the chunk's source is the matched product's document |
+| context | `hybrid.py` — `STRUCTURED FACTS` block + `PASSAGES`; no facts renders as `- (none matched)` |
+| trace | [`app/obs/tracing.py`](app/obs/tracing.py) + [`metrics.py`](app/obs/metrics.py) — append-only JSONL, p50/p95 |
+
+**What it costs.** Entity linking is a substring match. A question that names no entity
+links nothing, the facts block renders `- (none matched)` and the rerank boost is 0 — you
+paid for the graph hop and got dense retrieval. Deliberate at this corpus size; the first
+thing to replace at a larger one.
+
+---
+
 | Capability | Implementation | Proof |
 |---|---|---|
 | **RAG** | chunking → local embeddings (nomic-embed) → **Qdrant** → grounded synthesis | 4 demo cases |
 | **Knowledge graph** | typed graph (products, classes, indications, reversal agents) + **hybrid GraphRAG** (vector + graph expansion + rerank) | `app/graph/` |
 | **Compliance prompting** | versioned system prompts: on-label only, fair balance, **scoped off-label refusal** | eval harness |
 | **Observability** | per-request trace store · p50/p95 latency · tokens · error rate · **compliance eval (CI-gated)** · dashboard | dashboard ↓ |
-| **Fine-tuning** | domain **LoRA adapter trained on the RTX 3090** (bf16, rank 16) | A/B ↓ |
+| **Fine-tuning** | domain **LoRA adapter trained on a single 24 GB GPU** (bf16, rank 16) | A/B ↓ |
 | **MLOps** | **FastAPI** versioned endpoints (model+prompt version per response) · offline tests · **GitHub Actions CI** | ✅ green |
 
 ---
@@ -103,7 +138,7 @@ python tests/test_core.py                # offline unit tests (what CI runs)
 uvicorn app.api:app --port 8100          # versioned inference API
 ```
 
-Fine-tuning (RTX 3090): see [`finetune/`](finetune/) — dataset generator, native
+Fine-tuning (single 24 GB GPU): see [`finetune/`](finetune/) — dataset generator, native
 Windows LoRA trainer, and the [A/B result](finetune/AB_RESULT.md).
 
 ---
@@ -142,7 +177,7 @@ dataset. The knowledge graph runs on networkx with a Neo4j-ready schema.
 
 ## Stack
 
-Python · Ollama (Qwen3.6, RTX 3090) · Qdrant · networkx · FastAPI · transformers /
+Python · Ollama (Qwen3.6, local 24 GB GPU) · Qdrant · networkx · FastAPI · transformers /
 peft / trl (LoRA) · GitHub Actions
 
 <div align="center"><sub>Built by <a href="https://github.com/msemino">@msemino</a> · Remote · UTC-3</sub></div>

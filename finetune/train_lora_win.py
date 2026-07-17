@@ -1,5 +1,5 @@
 """
-LoRA fine-tuning — native Windows / RTX 3090 path (no unsloth, no bitsandbytes).
+LoRA fine-tuning — native Windows / local GPU path (no unsloth, no bitsandbytes).
 
 bf16 LoRA on a small instruct base so it trains reliably on native Windows with
 just torch + transformers + peft + trl. Produces a real adapter in
