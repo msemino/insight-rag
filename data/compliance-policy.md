@@ -1,4 +1,4 @@
-# HCP engagement compliance policy — reference (simulated)
+# HCP engagement compliance policy — reference (fictional)
 
 This document governs how an AI assistant may present product information to
 healthcare professionals and internal stakeholders.
@@ -22,3 +22,6 @@ healthcare professionals and internal stakeholders.
 A compliant answer to an off-label or comparative question is a *scoped refusal
 plus on-label facts*, not a blanket refusal. Over-blocking legitimate on-label
 questions is itself a failure mode to minimise.
+
+> Fictional reference document written for the InsightRAG repository. The product,
+> substance, company and trial names are invented; nothing here is real or is medical advice.

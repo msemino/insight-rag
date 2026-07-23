@@ -30,9 +30,10 @@ traceability, compliance guardrails that cut false positives, model/prompt
 versioning, a knowledge graph for exact relations, and an observability layer a
 compliance officer can audit.
 
-InsightRAG implements those parts end-to-end over a **simulated Healthcare-
-Professional (HCP) knowledge base** built from public product & regulatory
-information — no sensitive data.
+InsightRAG implements those parts end-to-end over a **fictional Healthcare-
+Professional (HCP) knowledge base**: invented products, substances, companies and
+trials, written for this repository. Nothing here is real, proprietary or sensitive
+— the engineering is what's being demonstrated, not the pharmacology.
 
 ---
 
@@ -91,10 +92,10 @@ thing to replace at a larger one.
 
 | Question | Behavior | ✓ |
 |---|---|---|
-| *MoA of Jardiance + key risks?* | efficacy **always paired with safety** (fair balance) | ✅ |
-| *How is a Pradaxa bleeding emergency reversed?* | cross-document retrieval → idarucizumab | ✅ |
-| *Can I use Ofev to treat asthma?* | **scoped refusal + on-label facts** (not over-blocked) | ✅ |
-| *List price of Spiriva in Argentina?* | *"not covered in my sources"* — no hallucination | ✅ |
+| *MoA of Orvenda + key risks?* | efficacy **always paired with safety** (fair balance) | ✅ |
+| *How is a Vestrila bleeding emergency reversed?* | cross-document retrieval → veligumab | ✅ |
+| *Can I use Pulmyra to treat asthma?* | **scoped refusal + on-label facts** (not over-blocked) | ✅ |
+| *List price of Aerivo in Argentina?* | *"not covered in my sources"* — no hallucination | ✅ |
 
 > The off-label case is the point: a compliant answer is a *scoped refusal plus
 > on-label facts*, not a blanket refusal — **reducing false positives**, exactly
@@ -103,14 +104,14 @@ thing to replace at a larger one.
 ### 2 · Hybrid GraphRAG — exact relations from the knowledge graph
 
 ```text
-Q: What drug class is Jardiance, who makes it, and what is it indicated for?
+Q: What drug class is Orvenda, who makes it, and what is it indicated for?
 
 STRUCTURED FACTS (from knowledge graph):
-  - Jardiance is of drug class SGLT2 inhibitor.
-  - Jardiance is manufactured by Boehringer Ingelheim / Eli Lilly alliance.
-  - Jardiance is indicated for Type 2 diabetes mellitus.
-  - Jardiance is indicated for Heart failure (reduced & preserved EF).
-  - Jardiance is indicated for Chronic kidney disease.
+  - Orvenda is of drug class SGLT2 inhibitor.
+  - Orvenda is manufactured by Norwick Pharma / Halvern Biosciences alliance.
+  - Orvenda is indicated for Type 2 diabetes mellitus.
+  - Orvenda is indicated for Heart failure (reduced & preserved EF).
+  - Orvenda is indicated for Chronic kidney disease.
 ```
 
 ### 3 · Observability — every request traced
@@ -144,7 +145,7 @@ ins:madeBy       owl:propertyChainAxiom ( ins:madeBy ins:hasMember ) .
 ins:hasDrugClass owl:propertyChainAxiom ( ins:hasDrugClass skos:broaderTransitive ) .
 ```
 
-No source document says Jardiance is made by Boehringer Ingelheim — only that the
+No source document says Orvenda is made by Norwick Pharma — only that the
 alliance makes it. The reasoner derives the rest. Details, including the two defects
 the layer found in its own data, in [`app/onto/README.md`](app/onto/README.md).
 
@@ -157,7 +158,7 @@ pip install -r requirements.txt          # + Ollama with a chat model & nomic-em
 python -m app.rag.store                  # ingest corpus -> Qdrant
 python demo_cases.py                     # 4 compliance demo cases
 python -m app.graph.kg                   # build the knowledge graph
-python -m app.graph.hybrid "What class is Jardiance and what is it indicated for?"
+python -m app.graph.hybrid "What class is Orvenda and what is it indicated for?"
 python -m app.obs.evaluate               # compliance eval harness (CI-style)
 python -m app.obs.dashboard              # render the observability dashboard
 python tests/test_core.py                # offline unit tests (what CI runs)
@@ -209,12 +210,15 @@ on a small dataset — it demonstrates the effect, and hardens by extending the
 dataset. The knowledge graph runs on networkx with a Neo4j-ready schema, and the
 semantic layer runs in rdflib — neither has been exercised on a graph database.
 
-**Not affiliated with, endorsed by, or connected to any pharmaceutical company.**
-Product names appear only as realistic subject matter for a compliance-oriented
-retrieval demo. Every document under `data/` was written for this repository from
-public information and is marked *simulated*; none of it is, or is derived from,
-any company's internal, regulatory or promotional material. Nothing here is
-medical advice.
+**Everything in the corpus is fictional, and not affiliated with or endorsed by any
+company.** Orvenda, Vestrila, Pulmyra, Aerivo and Bindavex are invented brands;
+orvagliflozin, veligatran, selranib, calmatropium and veligumab are invented
+substances — they follow real INN stem conventions (`-gliflozin`, `-gatran`,
+`-nib`, `-tropium`, `-umab`) so the domain reads correctly, but no such products,
+companies or trials exist. Every document under `data/` was written for this
+repository and is marked *fictional*; none of it is, or derives from, any
+company's internal, regulatory or promotional material. Any resemblance to a real
+product is coincidental. **Nothing here is medical advice.**
 
 ## Stack
 

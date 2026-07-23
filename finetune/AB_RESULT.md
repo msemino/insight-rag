@@ -8,15 +8,15 @@ The point of the adapter is *behavior*, not knowledge: hold the compliance style
 with a **one-line** system prompt. Test below uses the short prompt
 `"You are a pharma HCP assistant."` — no compliance instructions.
 
-**Question:** *Can I prescribe Pradaxa for an indication that is not on its label?*
+**Question:** *Can I prescribe Vestrila for an indication that is not on its label?*
 
 ### BASE (no adapter)
-> Pradaxa (Dabigatran) is a direct thrombin inhibitor used to prevent stroke ...
+> Vestrila (Veligatran) is a direct thrombin inhibitor used to prevent stroke ...
 > However, it is important to note that prescribing a medication for an indication
 > not listed on the drug's label ... is generally not recommended. This practice
 > is known as off-label use. Here are some considerations:
 > **1. Medical Necessity:** You should ensure that the patient has a medical
-> necessity for the off-label use of Pradaxa ...
+> necessity for the off-label use of Vestrila ...
 
 → Drifts into **coaching off-label use** — the exact compliance failure mode.
 
@@ -34,6 +34,11 @@ Compliant behavior held with a one-line prompt.
 - Trained on a small 12-example dataset — this is a **proof of the pipeline** and
   its effect, not a production-grade adapter. Extend `dataset.jsonl` (more corpus
   docs / curated pairs) to harden it.
+- **These two transcripts are verbatim model output from the original run, with the
+  product names substituted** when the corpus was moved to fictional names. The
+  wording, the drift and the refusal are unedited; only the brand and substance
+  tokens changed. Re-running the pair after a fresh train on the renamed dataset
+  reproduces it end-to-end — that run has not been done, so it is not claimed here.
 - Reproduce: `.venv\Scripts\python finetune\train_lora_win.py` then
   `.venv\Scripts\python finetune\infer_compare.py`.
 - Adapter weights (`adapter_model.safetensors`, ~114 MB) exceed GitHub's 100 MB

@@ -78,12 +78,12 @@ ins:hasMember     a owl:ObjectProperty ; rdfs:label "has member" ;
 ################################################################################
 
 # A product marketed by an alliance is marketed by each member company.
-#   Jardiance madeBy Alliance . Alliance hasMember BI  ==>  Jardiance madeBy BI
+#   Orvenda madeBy Alliance . Alliance hasMember BI  ==>  Orvenda madeBy BI
 ins:madeBy owl:propertyChainAxiom ( ins:madeBy ins:hasMember ) .
 
 # A product of a narrow class is also of every broader class.
-#   Pradaxa hasDrugClass DOAC . DOAC broaderTransitive Anticoagulant
-#     ==> Pradaxa hasDrugClass Anticoagulant
+#   Vestrila hasDrugClass DOAC . DOAC broaderTransitive Anticoagulant
+#     ==> Vestrila hasDrugClass Anticoagulant
 ins:hasDrugClass owl:propertyChainAxiom ( ins:hasDrugClass skos:broaderTransitive ) .
 
 # The two SKOS axioms the chain above depends on. They are part of the SKOS
@@ -98,18 +98,18 @@ skos:broader rdfs:subPropertyOf skos:broaderTransitive .
 # Organizations
 ################################################################################
 
-ins:boehringer-ingelheim a ins:LegalEntity ;
-    skos:prefLabel "Boehringer Ingelheim"@en ;
-    skos:altLabel "BI"@en, "Boehringer"@en .
+ins:norwick-pharma a ins:LegalEntity ;
+    skos:prefLabel "Norwick Pharma"@en ;
+    skos:altLabel "NP"@en, "Norwick"@en .
 
-ins:eli-lilly a ins:LegalEntity ;
-    skos:prefLabel "Eli Lilly and Company"@en ;
-    skos:altLabel "Lilly"@en, "Eli Lilly"@en .
+ins:halvern-biosciences a ins:LegalEntity ;
+    skos:prefLabel "Halvern Biosciences and Company"@en ;
+    skos:altLabel "Halvern"@en, "Halvern Biosciences"@en .
 
-ins:boehringer-ingelheim-eli-lilly-alliance a ins:Alliance ;
-    skos:prefLabel "Boehringer Ingelheim / Eli Lilly alliance"@en ;
-    skos:altLabel "BI-Lilly alliance"@en, "the Diabetes Alliance"@en ;
-    ins:hasMember ins:boehringer-ingelheim, ins:eli-lilly .
+ins:norwick-pharma-halvern-biosciences-alliance a ins:Alliance ;
+    skos:prefLabel "Norwick Pharma / Halvern Biosciences alliance"@en ;
+    skos:altLabel "NP-Halvern alliance"@en, "the Diabetes Alliance"@en ;
+    ins:hasMember ins:norwick-pharma, ins:halvern-biosciences .
 
 ################################################################################
 # Drug-class taxonomy (skos:broader — narrower concepts point up)
@@ -175,6 +175,6 @@ ins:asthma skos:altLabel "asthmatic"@en .
 # Reversal agents and substances — brand/INN synonyms
 ################################################################################
 
-ins:idarucizumab skos:altLabel "Praxbind"@en, "antidote"@en, "reversal agent"@en .
-ins:empagliflozin skos:altLabel "Jardiance INN"@en .
-ins:dabigatran-etexilate skos:altLabel "dabigatran"@en .
+ins:veligumab skos:altLabel "Bindavex"@en, "antidote"@en, "reversal agent"@en .
+ins:orvagliflozin skos:altLabel "Orvenda INN"@en .
+ins:veligatran-etexilate skos:altLabel "veligatran"@en .

@@ -99,7 +99,7 @@ def answer(question: str, k: int = 4) -> dict:
 
 
 if __name__ == "__main__":
-    q = " ".join(sys.argv[1:]) or "What class is Jardiance and what is it indicated for?"
+    q = " ".join(sys.argv[1:]) or "What class is Orvenda and what is it indicated for?"
     r = answer(q)
     print("Q:", r["question"])
     print("ENTITIES:", r["entities"])

@@ -25,11 +25,11 @@ def test_kg_builds_expected_types():
     assert "INDICATED_FOR" in rels and "REVERSED_BY" in rels
 
 
-def test_kg_links_pradaxa_to_reversal_agent():
+def test_kg_links_vestrila_to_reversal_agent():
     from app.graph.kg import build
     g = build()
     revs = [(u, v) for u, v, d in g.edges(data=True) if d["rel"] == "REVERSED_BY"]
-    assert any(u == "Pradaxa" for u, _ in revs)
+    assert any(u == "Vestrila" for u, _ in revs)
 
 
 def test_metrics_percentile_math():
@@ -46,11 +46,11 @@ def test_entity_linking_matches_query():
     save(build())
     from app.graph.kg import load
     kg = load()
-    ents = _link_entities("what is the class of jardiance?", kg)
-    assert "Jardiance" in ents
+    ents = _link_entities("what is the class of orvenda?", kg)
+    assert "Orvenda" in ents
     facts, boost = _graph_facts(ents, kg)
     assert any("SGLT2" in f for f in facts)
-    assert "jardiance.md" in boost
+    assert "orvenda.md" in boost
 
 
 if __name__ == "__main__":

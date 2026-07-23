@@ -1,10 +1,10 @@
-# Ofev (nintedanib) — HCP reference (simulated)
+# Pulmyra (selranib) — HCP reference (fictional)
 
 Class: Intracellular tyrosine kinase inhibitor (anti-fibrotic).
-Manufacturer: Boehringer Ingelheim.
+Manufacturer: Norwick Pharma.
 
 ## Mechanism of action
-Nintedanib inhibits receptor tyrosine kinases including PDGFR, FGFR and VEGFR,
+Selranib inhibits receptor tyrosine kinases including PDGFR, FGFR and VEGFR,
 signalling pathways implicated in the pathogenesis of pulmonary fibrosis.
 This slows the fibrotic process.
 
@@ -22,4 +22,7 @@ This slows the fibrotic process.
 
 ## Typical HCP question triggers
 Dose management of GI side effects, LFT monitoring schedule, evidence base
-(INPULSIS, SENSCIS trials), use alongside pirfenidone.
+(PULMYRA-IPF, SELRA-ILD trials), use alongside a different-class antifibrotic.
+
+> Fictional reference document written for the InsightRAG repository. The product,
+> substance, company and trial names are invented; nothing here is real or is medical advice.

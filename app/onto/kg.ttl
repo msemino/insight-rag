@@ -10,6 +10,15 @@ skos:broader rdfs:subPropertyOf skos:broaderTransitive .
     rdfs:label "InsightRAG HCP domain ontology" ;
     owl:versionInfo "onto_v1" .
 
+ins:aerivo a ins:Product ;
+    skos:prefLabel "Aerivo"@en ;
+    ins:hasDrugClass ins:long-acting-muscarinic-antagonist ;
+    ins:hasSubstance ins:calmatropium ;
+    ins:indicatedFor ins:asthma,
+        ins:chronic-obstructive-pulmonary-disease-copd ;
+    ins:madeBy ins:norwick-pharma ;
+    ins:sourceDocument "aerivo.md" .
+
 ins:hasSubstance a owl:ObjectProperty ;
     rdfs:label "has substance" ;
     rdfs:domain ins:Product ;
@@ -22,35 +31,25 @@ ins:indicatedFor a owl:ObjectProperty ;
     rdfs:range ins:Indication ;
     owl:inverseOf ins:indicationOf .
 
-ins:jardiance a ins:Product ;
-    skos:prefLabel "Jardiance"@en ;
+ins:orvenda a ins:Product ;
+    skos:prefLabel "Orvenda"@en ;
     ins:hasDrugClass ins:sglt2-inhibitor ;
-    ins:hasSubstance ins:empagliflozin ;
+    ins:hasSubstance ins:orvagliflozin ;
     ins:indicatedFor ins:chronic-kidney-disease-to-reduce-risk-of-progression,
         ins:heart-failure-both-reduced-and-preserved-ejection-fraction-to-reduce-risk,
         ins:type-2-diabetes-mellitus ;
-    ins:madeBy ins:boehringer-ingelheim-eli-lilly-alliance ;
-    ins:sourceDocument "jardiance.md" .
+    ins:madeBy ins:norwick-pharma-halvern-biosciences-alliance ;
+    ins:sourceDocument "orvenda.md" .
 
-ins:ofev a ins:Product ;
-    skos:prefLabel "Ofev"@en ;
+ins:pulmyra a ins:Product ;
+    skos:prefLabel "Pulmyra"@en ;
     ins:hasDrugClass ins:intracellular-tyrosine-kinase-inhibitor ;
-    ins:hasSubstance ins:nintedanib ;
+    ins:hasSubstance ins:selranib ;
     ins:indicatedFor ins:idiopathic-pulmonary-fibrosis-ipf,
         ins:other-chronic-fibrosing-interstitial-lung-diseases-with-a-progressive-phenotype,
         ins:systemic-sclerosis-associated-interstitial-lung-disease-ssc-ild ;
-    ins:madeBy ins:boehringer-ingelheim ;
-    ins:sourceDocument "ofev.md" .
-
-ins:pradaxa a ins:Product ;
-    skos:prefLabel "Pradaxa"@en ;
-    ins:hasDrugClass ins:direct-oral-anticoagulant ;
-    ins:hasSubstance ins:dabigatran-etexilate ;
-    ins:indicatedFor ins:stroke-prevention-in-non-valvular-atrial-fibrillation,
-        ins:treatment-and-secondary-prevention-of-deep-vein-thrombosis-and-pulmonary-embolism ;
-    ins:madeBy ins:boehringer-ingelheim ;
-    ins:reversedBy ins:idarucizumab ;
-    ins:sourceDocument "pradaxa.md" .
+    ins:madeBy ins:norwick-pharma ;
+    ins:sourceDocument "pulmyra.md" .
 
 ins:reversedBy a owl:ObjectProperty ;
     rdfs:label "reversed by" ;
@@ -58,14 +57,15 @@ ins:reversedBy a owl:ObjectProperty ;
     rdfs:range ins:ReversalAgent ;
     owl:inverseOf ins:reverses .
 
-ins:spiriva a ins:Product ;
-    skos:prefLabel "Spiriva"@en ;
-    ins:hasDrugClass ins:long-acting-muscarinic-antagonist ;
-    ins:hasSubstance ins:tiotropium ;
-    ins:indicatedFor ins:asthma,
-        ins:chronic-obstructive-pulmonary-disease-copd ;
-    ins:madeBy ins:boehringer-ingelheim ;
-    ins:sourceDocument "spiriva.md" .
+ins:vestrila a ins:Product ;
+    skos:prefLabel "Vestrila"@en ;
+    ins:hasDrugClass ins:direct-oral-anticoagulant ;
+    ins:hasSubstance ins:veligatran-etexilate ;
+    ins:indicatedFor ins:stroke-prevention-in-non-valvular-atrial-fibrillation,
+        ins:treatment-and-secondary-prevention-of-deep-vein-thrombosis-and-pulmonary-embolism ;
+    ins:madeBy ins:norwick-pharma ;
+    ins:reversedBy ins:veligumab ;
+    ins:sourceDocument "vestrila.md" .
 
 ins:anticoagulant a ins:DrugClass ;
     skos:altLabel "blood thinner"@en ;
@@ -83,16 +83,11 @@ ins:asthma a ins:Indication ;
     skos:altLabel "asthmatic"@en ;
     skos:prefLabel "Asthma"@en .
 
-ins:boehringer-ingelheim-eli-lilly-alliance a ins:Alliance,
-        ins:Organization ;
-    skos:altLabel "BI-Lilly alliance"@en,
-        "the Diabetes Alliance"@en ;
-    skos:prefLabel "Boehringer Ingelheim / Eli Lilly alliance"@en ;
-    ins:hasMember ins:boehringer-ingelheim,
-        ins:eli-lilly .
-
 ins:bronchodilator a ins:DrugClass ;
     skos:prefLabel "Bronchodilator"@en .
+
+ins:calmatropium a ins:Substance ;
+    skos:prefLabel "calmatropium"@en .
 
 ins:chronic-kidney-disease-to-reduce-risk-of-progression a ins:Indication ;
     skos:altLabel "CKD"@en,
@@ -106,10 +101,6 @@ ins:chronic-obstructive-pulmonary-disease-copd a ins:Indication ;
         "emphysema"@en ;
     skos:prefLabel "Chronic obstructive pulmonary disease (COPD)"@en .
 
-ins:dabigatran-etexilate a ins:Substance ;
-    skos:altLabel "dabigatran"@en ;
-    skos:prefLabel "dabigatran etexilate"@en .
-
 ins:direct-oral-anticoagulant a ins:DrugClass ;
     skos:altLabel "DOAC"@en,
         "NOAC"@en ;
@@ -119,14 +110,10 @@ ins:direct-oral-anticoagulant a ins:DrugClass ;
 ins:drugClassOf a owl:ObjectProperty ;
     rdfs:label "drug class of" .
 
-ins:eli-lilly a ins:LegalEntity ;
-    skos:altLabel "Eli Lilly"@en,
-        "Lilly"@en ;
-    skos:prefLabel "Eli Lilly and Company"@en .
-
-ins:empagliflozin a ins:Substance ;
-    skos:altLabel "Jardiance INN"@en ;
-    skos:prefLabel "empagliflozin"@en .
+ins:halvern-biosciences a ins:LegalEntity ;
+    skos:altLabel "Halvern"@en,
+        "Halvern Biosciences"@en ;
+    skos:prefLabel "Halvern Biosciences and Company"@en .
 
 ins:hasDrugClass a owl:ObjectProperty ;
     rdfs:label "has drug class" ;
@@ -146,12 +133,6 @@ ins:heart-failure-both-reduced-and-preserved-ejection-fraction-to-reduce-risk a 
         "HFrEF"@en,
         "heart failure"@en ;
     skos:prefLabel "Heart failure (both reduced and preserved ejection fraction) to reduce risk"@en .
-
-ins:idarucizumab a ins:ReversalAgent ;
-    skos:altLabel "Praxbind"@en,
-        "antidote"@en,
-        "reversal agent"@en ;
-    skos:prefLabel "Idarucizumab"@en .
 
 ins:idiopathic-pulmonary-fibrosis-ipf a ins:Indication ;
     skos:altLabel "IPF"@en,
@@ -186,8 +167,17 @@ ins:madeBy a owl:ObjectProperty ;
 ins:manufactures a owl:ObjectProperty ;
     rdfs:label "manufactures" .
 
-ins:nintedanib a ins:Substance ;
-    skos:prefLabel "nintedanib"@en .
+ins:norwick-pharma-halvern-biosciences-alliance a ins:Alliance,
+        ins:Organization ;
+    skos:altLabel "NP-Halvern alliance"@en,
+        "the Diabetes Alliance"@en ;
+    skos:prefLabel "Norwick Pharma / Halvern Biosciences alliance"@en ;
+    ins:hasMember ins:halvern-biosciences,
+        ins:norwick-pharma .
+
+ins:orvagliflozin a ins:Substance ;
+    skos:altLabel "Orvenda INN"@en ;
+    skos:prefLabel "orvagliflozin"@en .
 
 ins:other-chronic-fibrosing-interstitial-lung-diseases-with-a-progressive-phenotype a ins:Indication ;
     skos:altLabel "PPF"@en,
@@ -197,6 +187,9 @@ ins:other-chronic-fibrosing-interstitial-lung-diseases-with-a-progressive-phenot
 
 ins:reverses a owl:ObjectProperty ;
     rdfs:label "reverses" .
+
+ins:selranib a ins:Substance ;
+    skos:prefLabel "selranib"@en .
 
 ins:sglt2-inhibitor a ins:DrugClass ;
     skos:altLabel "SGLT2"@en,
@@ -221,9 +214,6 @@ ins:systemic-sclerosis-associated-interstitial-lung-disease-ssc-ild a ins:Indica
         "systemic sclerosis"@en ;
     skos:prefLabel "Systemic sclerosis-associated interstitial lung disease (SSc-ILD)"@en .
 
-ins:tiotropium a ins:Substance ;
-    skos:prefLabel "tiotropium"@en .
-
 ins:treatment-and-secondary-prevention-of-deep-vein-thrombosis-and-pulmonary-embolism a ins:Indication ;
     skos:altLabel "DVT"@en,
         "PE"@en,
@@ -238,6 +228,16 @@ ins:type-2-diabetes-mellitus a ins:Indication ;
         "diabetes"@en,
         "type 2 diabetes"@en ;
     skos:prefLabel "Type 2 diabetes mellitus"@en .
+
+ins:veligatran-etexilate a ins:Substance ;
+    skos:altLabel "veligatran"@en ;
+    skos:prefLabel "veligatran etexilate"@en .
+
+ins:veligumab a ins:ReversalAgent ;
+    skos:altLabel "Bindavex"@en,
+        "antidote"@en,
+        "reversal agent"@en ;
+    skos:prefLabel "Veligumab"@en .
 
 skos:broaderTransitive a owl:TransitiveProperty .
 
@@ -254,11 +254,11 @@ ins:LegalEntity a owl:Class ;
     rdfs:comment "A company that can hold a marketing authorisation." ;
     rdfs:subClassOf ins:Organization .
 
-ins:boehringer-ingelheim a ins:LegalEntity,
+ins:norwick-pharma a ins:LegalEntity,
         ins:Organization ;
-    skos:altLabel "BI"@en,
-        "Boehringer"@en ;
-    skos:prefLabel "Boehringer Ingelheim"@en .
+    skos:altLabel "NP"@en,
+        "Norwick"@en ;
+    skos:prefLabel "Norwick Pharma"@en .
 
 ins:Organization a owl:Class ;
     rdfs:label "Organization" .

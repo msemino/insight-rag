@@ -13,11 +13,11 @@ data drifts away from it.
 
 | | flat KG | + semantic layer |
 |---|---|---|
-| Question "which product for COPD?" | links nothing | `Spiriva` |
-| Question "any anticoagulant?" | links nothing | `Pradaxa` (only typed as a DOAC) |
-| Question "what does Boehringer offer for T2D?" | links nothing | `Jardiance` |
+| Question "which product for COPD?" | links nothing | `Aerivo` |
+| Question "any anticoagulant?" | links nothing | `Vestrila` (only typed as a DOAC) |
+| Question "what does Norwick offer for T2D?" | links nothing | `Orvenda` |
 | "Which products have **no** reversal agent?" | not answerable | exact, 3 rows |
-| Jardiance's authorisation holder | `"Boehringer Ingelheim / Eli Lilly alliance"` (a string) | resolves to both member companies |
+| Orvenda's authorisation holder | `"Norwick Pharma / Halvern Biosciences alliance"` (a string) | resolves to both member companies |
 | Data-quality check | none | 3 SHACL shapes in CI |
 
 `compare_linking.py` recovers **6 of 7** realistic HCP questions that the

@@ -48,7 +48,7 @@ def answer(question: str, k: int = 4) -> dict:
 
 
 if __name__ == "__main__":
-    q = " ".join(sys.argv[1:]) or "What is the mechanism of action of Jardiance?"
+    q = " ".join(sys.argv[1:]) or "What is the mechanism of action of Orvenda?"
     r = answer(q)
     print("Q:", r["question"])
     print("A:", r["answer"])

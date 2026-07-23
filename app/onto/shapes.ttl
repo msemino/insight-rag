@@ -5,7 +5,7 @@
 # stops describing what a regulated answer needs to cite.
 #
 # Note ProductShape/madeBy: it is written against the *inferred* graph on
-# purpose. Asserted-only, Jardiance violates it — its document names a
+# purpose. Asserted-only, Orvenda violates it — its document names a
 # co-marketing alliance, which is not a legal entity and cannot hold a
 # marketing authorisation. The property chain in ontology.ttl is what resolves
 # that identity. Running validation before and after reasoning is the cheapest

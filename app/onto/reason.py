@@ -4,9 +4,9 @@ OWL 2 RL reasoning over the lifted graph.
 This is the step a property graph cannot do for you: the closure *derives* facts
 nobody wrote down. Two chains matter here (declared in ontology.ttl):
 
-  madeBy o hasMember          -> Jardiance is madeBy Boehringer Ingelheim, even
-                                 though the document only names the BI/Lilly alliance.
-  hasDrugClass o broaderTrans -> Pradaxa hasDrugClass Anticoagulant, even though
+  madeBy o hasMember          -> Orvenda is madeBy Norwick Pharma, even
+                                 though the document only names the BI/Halvern alliance.
+  hasDrugClass o broaderTrans -> Vestrila hasDrugClass Anticoagulant, even though
                                  the document only says "Direct oral anticoagulant".
 
 Plus every owl:inverseOf, so the graph is traversable in both directions.

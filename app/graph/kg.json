@@ -1,12 +1,37 @@
 {
   "nodes": [
     {
-      "id": "Jardiance",
+      "id": "Aerivo",
       "type": "Product",
-      "source": "jardiance.md"
+      "source": "aerivo.md"
     },
     {
-      "id": "empagliflozin",
+      "id": "calmatropium",
+      "type": "Generic"
+    },
+    {
+      "id": "Long-acting muscarinic antagonist",
+      "type": "DrugClass"
+    },
+    {
+      "id": "Norwick Pharma",
+      "type": "Manufacturer"
+    },
+    {
+      "id": "Chronic obstructive pulmonary disease (COPD)",
+      "type": "Indication"
+    },
+    {
+      "id": "Asthma",
+      "type": "Indication"
+    },
+    {
+      "id": "Orvenda",
+      "type": "Product",
+      "source": "orvenda.md"
+    },
+    {
+      "id": "orvagliflozin",
       "type": "Generic"
     },
     {
@@ -14,7 +39,7 @@
       "type": "DrugClass"
     },
     {
-      "id": "Boehringer Ingelheim / Eli Lilly alliance",
+      "id": "Norwick Pharma / Halvern Biosciences alliance",
       "type": "Manufacturer"
     },
     {
@@ -30,21 +55,17 @@
       "type": "Indication"
     },
     {
-      "id": "Ofev",
+      "id": "Pulmyra",
       "type": "Product",
-      "source": "ofev.md"
+      "source": "pulmyra.md"
     },
     {
-      "id": "nintedanib",
+      "id": "selranib",
       "type": "Generic"
     },
     {
       "id": "Intracellular tyrosine kinase inhibitor",
       "type": "DrugClass"
-    },
-    {
-      "id": "Boehringer Ingelheim",
-      "type": "Manufacturer"
     },
     {
       "id": "Idiopathic pulmonary fibrosis (IPF)",
@@ -59,12 +80,12 @@
       "type": "Indication"
     },
     {
-      "id": "Pradaxa",
+      "id": "Vestrila",
       "type": "Product",
-      "source": "pradaxa.md"
+      "source": "vestrila.md"
     },
     {
-      "id": "dabigatran etexilate",
+      "id": "veligatran etexilate",
       "type": "Generic"
     },
     {
@@ -80,146 +101,125 @@
       "type": "Indication"
     },
     {
-      "id": "Idarucizumab",
+      "id": "Veligumab",
       "type": "ReversalAgent"
-    },
-    {
-      "id": "Spiriva",
-      "type": "Product",
-      "source": "spiriva.md"
-    },
-    {
-      "id": "tiotropium",
-      "type": "Generic"
-    },
-    {
-      "id": "Long-acting muscarinic antagonist",
-      "type": "DrugClass"
-    },
-    {
-      "id": "Chronic obstructive pulmonary disease (COPD)",
-      "type": "Indication"
-    },
-    {
-      "id": "Asthma",
-      "type": "Indication"
     }
   ],
   "triples": [
     {
-      "s": "Jardiance",
+      "s": "Aerivo",
       "rel": "HAS_GENERIC",
-      "o": "empagliflozin"
+      "o": "calmatropium"
     },
     {
-      "s": "Jardiance",
-      "rel": "HAS_CLASS",
-      "o": "SGLT2 inhibitor"
-    },
-    {
-      "s": "Jardiance",
-      "rel": "MADE_BY",
-      "o": "Boehringer Ingelheim / Eli Lilly alliance"
-    },
-    {
-      "s": "Jardiance",
-      "rel": "INDICATED_FOR",
-      "o": "Type 2 diabetes mellitus"
-    },
-    {
-      "s": "Jardiance",
-      "rel": "INDICATED_FOR",
-      "o": "Heart failure (both reduced and preserved ejection fraction) to reduce risk"
-    },
-    {
-      "s": "Jardiance",
-      "rel": "INDICATED_FOR",
-      "o": "Chronic kidney disease to reduce risk of progression"
-    },
-    {
-      "s": "Ofev",
-      "rel": "HAS_GENERIC",
-      "o": "nintedanib"
-    },
-    {
-      "s": "Ofev",
-      "rel": "HAS_CLASS",
-      "o": "Intracellular tyrosine kinase inhibitor"
-    },
-    {
-      "s": "Ofev",
-      "rel": "MADE_BY",
-      "o": "Boehringer Ingelheim"
-    },
-    {
-      "s": "Ofev",
-      "rel": "INDICATED_FOR",
-      "o": "Idiopathic pulmonary fibrosis (IPF)"
-    },
-    {
-      "s": "Ofev",
-      "rel": "INDICATED_FOR",
-      "o": "Other chronic fibrosing interstitial lung diseases with a progressive phenotype"
-    },
-    {
-      "s": "Ofev",
-      "rel": "INDICATED_FOR",
-      "o": "Systemic sclerosis-associated interstitial lung disease (SSc-ILD)"
-    },
-    {
-      "s": "Pradaxa",
-      "rel": "HAS_GENERIC",
-      "o": "dabigatran etexilate"
-    },
-    {
-      "s": "Pradaxa",
-      "rel": "HAS_CLASS",
-      "o": "Direct oral anticoagulant"
-    },
-    {
-      "s": "Pradaxa",
-      "rel": "MADE_BY",
-      "o": "Boehringer Ingelheim"
-    },
-    {
-      "s": "Pradaxa",
-      "rel": "INDICATED_FOR",
-      "o": "Stroke prevention in non-valvular atrial fibrillation"
-    },
-    {
-      "s": "Pradaxa",
-      "rel": "INDICATED_FOR",
-      "o": "Treatment and secondary prevention of deep vein thrombosis and pulmonary embolism"
-    },
-    {
-      "s": "Pradaxa",
-      "rel": "REVERSED_BY",
-      "o": "Idarucizumab"
-    },
-    {
-      "s": "Spiriva",
-      "rel": "HAS_GENERIC",
-      "o": "tiotropium"
-    },
-    {
-      "s": "Spiriva",
+      "s": "Aerivo",
       "rel": "HAS_CLASS",
       "o": "Long-acting muscarinic antagonist"
     },
     {
-      "s": "Spiriva",
+      "s": "Aerivo",
       "rel": "MADE_BY",
-      "o": "Boehringer Ingelheim"
+      "o": "Norwick Pharma"
     },
     {
-      "s": "Spiriva",
+      "s": "Aerivo",
       "rel": "INDICATED_FOR",
       "o": "Chronic obstructive pulmonary disease (COPD)"
     },
     {
-      "s": "Spiriva",
+      "s": "Aerivo",
       "rel": "INDICATED_FOR",
       "o": "Asthma"
+    },
+    {
+      "s": "Orvenda",
+      "rel": "HAS_GENERIC",
+      "o": "orvagliflozin"
+    },
+    {
+      "s": "Orvenda",
+      "rel": "HAS_CLASS",
+      "o": "SGLT2 inhibitor"
+    },
+    {
+      "s": "Orvenda",
+      "rel": "MADE_BY",
+      "o": "Norwick Pharma / Halvern Biosciences alliance"
+    },
+    {
+      "s": "Orvenda",
+      "rel": "INDICATED_FOR",
+      "o": "Type 2 diabetes mellitus"
+    },
+    {
+      "s": "Orvenda",
+      "rel": "INDICATED_FOR",
+      "o": "Heart failure (both reduced and preserved ejection fraction) to reduce risk"
+    },
+    {
+      "s": "Orvenda",
+      "rel": "INDICATED_FOR",
+      "o": "Chronic kidney disease to reduce risk of progression"
+    },
+    {
+      "s": "Pulmyra",
+      "rel": "HAS_GENERIC",
+      "o": "selranib"
+    },
+    {
+      "s": "Pulmyra",
+      "rel": "HAS_CLASS",
+      "o": "Intracellular tyrosine kinase inhibitor"
+    },
+    {
+      "s": "Pulmyra",
+      "rel": "MADE_BY",
+      "o": "Norwick Pharma"
+    },
+    {
+      "s": "Pulmyra",
+      "rel": "INDICATED_FOR",
+      "o": "Idiopathic pulmonary fibrosis (IPF)"
+    },
+    {
+      "s": "Pulmyra",
+      "rel": "INDICATED_FOR",
+      "o": "Other chronic fibrosing interstitial lung diseases with a progressive phenotype"
+    },
+    {
+      "s": "Pulmyra",
+      "rel": "INDICATED_FOR",
+      "o": "Systemic sclerosis-associated interstitial lung disease (SSc-ILD)"
+    },
+    {
+      "s": "Vestrila",
+      "rel": "HAS_GENERIC",
+      "o": "veligatran etexilate"
+    },
+    {
+      "s": "Vestrila",
+      "rel": "HAS_CLASS",
+      "o": "Direct oral anticoagulant"
+    },
+    {
+      "s": "Vestrila",
+      "rel": "MADE_BY",
+      "o": "Norwick Pharma"
+    },
+    {
+      "s": "Vestrila",
+      "rel": "INDICATED_FOR",
+      "o": "Stroke prevention in non-valvular atrial fibrillation"
+    },
+    {
+      "s": "Vestrila",
+      "rel": "INDICATED_FOR",
+      "o": "Treatment and secondary prevention of deep vein thrombosis and pulmonary embolism"
+    },
+    {
+      "s": "Vestrila",
+      "rel": "REVERSED_BY",
+      "o": "Veligumab"
     }
   ]
 }

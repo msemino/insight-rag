@@ -63,7 +63,7 @@ QUERIES: dict[str, tuple[str, str]] = {
         "Full multi-hop profile of one product, with its source document",
         """
         SELECT ?product ?substance ?class ?indication ?source WHERE {
-          ?p skos:prefLabel "Pradaxa"@en ; skos:prefLabel ?product ;
+          ?p skos:prefLabel "Vestrila"@en ; skos:prefLabel ?product ;
              ins:sourceDocument ?source ;
              ins:hasSubstance/skos:prefLabel ?substance ;
              ins:indicatedFor/skos:prefLabel ?indication ;

@@ -11,7 +11,7 @@ the inferred graph to the products. Two rules keep it from over-firing:
 
   - word boundaries, always ("PE" must not match "prevention");
   - short all-caps acronyms (<= 4 chars) match case-sensitively, everything else
-    case-insensitively. Otherwise "AF" fires on "affects" and "BI" on "combined".
+    case-insensitively. Otherwise "AF" fires on "affects" and "NP" on "input".
 
 Every match reports which label matched, prefLabel or altLabel. That trace is
 what makes a wrong retrieval debuggable instead of mysterious.
@@ -97,7 +97,7 @@ def products_for(entities: list[dict]) -> list[str]:
     Products the question is about.
 
     Multiple linked entities are *constraints*, not alternatives: "what does
-    Boehringer offer for T2D" means the products that satisfy both, not the union
+    Norwick offer for T2D" means the products that satisfy both, not the union
     of everything BI makes with everything treating T2D. Intersect, and fall back
     to the union only when the intersection is empty — an over-constrained
     question should still retrieve something rather than nothing.

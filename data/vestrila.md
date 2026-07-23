@@ -1,10 +1,10 @@
-# Pradaxa (dabigatran etexilate) — HCP reference (simulated)
+# Vestrila (veligatran etexilate) — HCP reference (fictional)
 
 Class: Direct oral anticoagulant (direct thrombin / factor IIa inhibitor).
-Manufacturer: Boehringer Ingelheim.
+Manufacturer: Norwick Pharma.
 
 ## Mechanism of action
-Dabigatran directly and reversibly inhibits thrombin (factor IIa), preventing
+Veligatran directly and reversibly inhibits thrombin (factor IIa), preventing
 conversion of fibrinogen to fibrin and thus thrombus formation.
 
 ## Approved indications
@@ -12,7 +12,7 @@ conversion of fibrinogen to fibrin and thus thrombus formation.
 - Treatment and secondary prevention of deep vein thrombosis and pulmonary embolism.
 
 ## Reversal agent
-Idarucizumab (Praxbind) is a specific reversal agent that binds dabigatran,
+Veligumab (Bindavex) is a specific reversal agent that binds veligatran,
 used for emergency surgery or life-threatening bleeding.
 
 ## Key safety notes for HCPs
@@ -22,5 +22,8 @@ used for emergency surgery or life-threatening bleeding.
 - Do not open the capsule (increases bioavailability and bleeding risk).
 
 ## Typical HCP question triggers
-Reversal protocol with idarucizumab, dosing by creatinine clearance,
+Reversal protocol with veligumab, dosing by creatinine clearance,
 peri-procedural interruption, comparison with factor Xa inhibitors.
+
+> Fictional reference document written for the InsightRAG repository. The product,
+> substance, company and trial names are invented; nothing here is real or is medical advice.

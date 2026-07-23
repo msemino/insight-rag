@@ -1,10 +1,10 @@
-# Jardiance (empagliflozin) — HCP reference (simulated)
+# Orvenda (orvagliflozin) — HCP reference (fictional)
 
 Class: SGLT2 inhibitor (sodium-glucose co-transporter 2).
-Manufacturer: Boehringer Ingelheim / Eli Lilly alliance.
+Manufacturer: Norwick Pharma / Halvern Biosciences alliance.
 
 ## Mechanism of action
-Empagliflozin selectively inhibits SGLT2 in the proximal renal tubule,
+Orvagliflozin selectively inhibits SGLT2 in the proximal renal tubule,
 reducing glucose reabsorption and increasing urinary glucose excretion.
 The effect is insulin-independent.
 
@@ -21,5 +21,8 @@ The effect is insulin-independent.
 - Not recommended for glycaemic control if eGFR persistently below the label threshold.
 
 ## Typical HCP question triggers
-Dosing in renal impairment, cardiovascular outcome evidence (EMPA-REG OUTCOME,
-EMPEROR trials), differentiation vs other SGLT2 inhibitors.
+Dosing in renal impairment, cardiovascular outcome evidence (ORVA-CV OUTCOME,
+ORVENDA-HF trials), differentiation vs other SGLT2 inhibitors.
+
+> Fictional reference document written for the InsightRAG repository. The product,
+> substance, company and trial names are invented; nothing here is real or is medical advice.

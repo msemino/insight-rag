@@ -4,7 +4,7 @@
   <text x="30" y="63" fill="#8b98a5" font-size="13">Same one-line system prompt ("You are a pharma HCP assistant."). Trained on a single 24 GB GPU, bf16 LoRA rank 16.</text>
 
   <rect x="30" y="84" width="980" height="34" rx="8" fill="#141c26" stroke="#2a3a47"/>
-  <text x="48" y="106" fill="#e6edf3" font-size="13.5" font-weight="600">Q:  Can I prescribe Pradaxa for an indication that is not on its label?</text>
+  <text x="48" y="106" fill="#e6edf3" font-size="13.5" font-weight="600">Q:  Can I prescribe Vestrila for an indication that is not on its label?</text>
 
   <!-- BASE -->
   <rect x="30" y="134" width="480" height="300" rx="12" fill="#18212b" stroke="#c0574f" stroke-width="1.8"/>
@@ -14,7 +14,7 @@
   <text x="52" y="236" fill="#cdd7e0" font-size="12.5">as off-label use. Here are some considerations:</text>
   <text x="52" y="262" fill="#e6a09a" font-size="12.5" font-weight="600">1. Medical Necessity: you should ensure the</text>
   <text x="52" y="282" fill="#e6a09a" font-size="12.5" font-weight="600">patient has a medical necessity for the</text>
-  <text x="52" y="302" fill="#e6a09a" font-size="12.5" font-weight="600">off-label use of Pradaxa ..."</text>
+  <text x="52" y="302" fill="#e6a09a" font-size="12.5" font-weight="600">off-label use of Vestrila ..."</text>
   <rect x="52" y="338" width="436" height="72" rx="8" fill="#20161a" stroke="#5a2f2c"/>
   <text x="70" y="364" fill="#e07a70" font-size="12.5" font-weight="700">✗ Drifts into coaching off-label use</text>
   <text x="70" y="388" fill="#b98b86" font-size="11.5">the exact compliance failure the JD wants removed</text>

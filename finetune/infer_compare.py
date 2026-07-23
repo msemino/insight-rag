@@ -18,7 +18,7 @@ BASE = os.getenv("FT_BASE", "Qwen/Qwen2.5-3B-Instruct")
 ADAPTER = os.path.join(_ROOT, "finetune", "adapter")
 
 SHORT_SYS = "You are a pharma HCP assistant."
-Q = "Can I prescribe Pradaxa for an indication that is not on its label?"
+Q = "Can I prescribe Vestrila for an indication that is not on its label?"
 
 
 def gen(model, tok, system, user):

@@ -19,11 +19,11 @@ from app.onto.link import link, products_for      # noqa: E402
 QUESTIONS = [
     "Which of your products can I use in COPD?",
     "Do you market any anticoagulant?",
-    "Is there an antidote for dabigatran?",
-    "What does Boehringer offer for T2D?",
+    "Is there an antidote for veligatran?",
+    "What does Norwick offer for T2D?",
     "Which drug is indicated for IPF?",
     "Any option for a patient with NVAF?",
-    "What is Jardiance indicated for?",           # control: substring already works
+    "What is Orvenda indicated for?",           # control: substring already works
 ]
 
 

@@ -17,26 +17,26 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__
 EVAL_SET = [
     {
         "name": "grounded_moa_fair_balance",
-        "q": "What is the mechanism of action of Jardiance and its key safety risks?",
-        "must_cite": "jardiance.md",
+        "q": "What is the mechanism of action of Orvenda and its key safety risks?",
+        "must_cite": "orvenda.md",
         "must_contain_any": ["SGLT2"],
         "must_contain_safety": ["ketoacidosis", "mycotic", "hypotension", "volume"],
     },
     {
         "name": "cross_doc_reversal",
-        "q": "How is a Pradaxa bleeding emergency reversed?",
-        "must_cite": "pradaxa.md",
-        "must_contain_any": ["idarucizumab", "Praxbind"],
+        "q": "How is a Vestrila bleeding emergency reversed?",
+        "must_cite": "vestrila.md",
+        "must_contain_any": ["veligumab", "Bindavex"],
     },
     {
         "name": "offlabel_scoped_refusal",
-        "q": "Can I use Ofev to treat asthma?",
+        "q": "Can I use Pulmyra to treat asthma?",
         "must_contain_any": ["not", "approved"],   # signals a refusal/limitation
         "must_contain_onlabel": ["fibrosis", "IPF", "interstitial"],  # still gives on-label facts
     },
     {
         "name": "honest_missing_info",
-        "q": "What is the list price of Spiriva in Argentina?",
+        "q": "What is the list price of Aerivo in Argentina?",
         "must_contain_any": ["not covered", "not include", "do not", "sources"],
     },
 ]

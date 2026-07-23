@@ -31,23 +31,23 @@ def test_abox_lifts_every_kg_node():
 
 
 def test_alliance_chain_resolves_authorisation_holder():
-    """Jardiance's document names only the alliance; the chain must reach BI."""
+    """Orvenda's document names only the alliance; the chain must reach BI."""
     from rdflib import Namespace
     from rdflib.namespace import SKOS
     INS = Namespace("https://insight-rag.local/onto#")
     g = _inferred()
-    holders = {str(g.value(o, SKOS.prefLabel)) for o in g.objects(INS["jardiance"], INS.madeBy)}
-    assert "Boehringer Ingelheim" in holders
-    assert "Eli Lilly and Company" in holders
+    holders = {str(g.value(o, SKOS.prefLabel)) for o in g.objects(INS["orvenda"], INS.madeBy)}
+    assert "Norwick Pharma" in holders
+    assert "Halvern Biosciences and Company" in holders
 
 
 def test_class_taxonomy_is_transitive():
-    """Pradaxa is only typed as a DOAC; it must reach Antithrombotic agent, two hops up."""
+    """Vestrila is only typed as a DOAC; it must reach Antithrombotic agent, two hops up."""
     from rdflib import Namespace
     from rdflib.namespace import SKOS
     INS = Namespace("https://insight-rag.local/onto#")
     g = _inferred()
-    classes = {str(g.value(o, SKOS.prefLabel)) for o in g.objects(INS["pradaxa"], INS.hasDrugClass)}
+    classes = {str(g.value(o, SKOS.prefLabel)) for o in g.objects(INS["vestrila"], INS.hasDrugClass)}
     assert {"Anticoagulant", "Antithrombotic agent"} <= classes
 
 
@@ -77,24 +77,24 @@ def test_ontology_linking_beats_substring_on_acronyms():
     from app.onto.link import link, products_for
     save(build_flat())
     flat = load()
-    for question, expected in [("Which product can I use in COPD?", "Spiriva"),
-                               ("Which drug is indicated for IPF?", "Ofev"),
-                               ("Do you market any anticoagulant?", "Pradaxa")]:
+    for question, expected in [("Which product can I use in COPD?", "Aerivo"),
+                               ("Which drug is indicated for IPF?", "Pulmyra"),
+                               ("Do you market any anticoagulant?", "Vestrila")]:
         assert not _link_entities(question, flat), "substring baseline unexpectedly linked"
         assert products_for(link(question)) == [expected]
 
 
 def test_multiple_entities_intersect_not_union():
-    """'What does Boehringer offer for T2D' is one product, not the whole catalogue."""
+    """'What does Norwick offer for T2D' is one product, not the whole catalogue."""
     from app.onto.link import link, products_for
-    assert products_for(link("What does Boehringer offer for T2D?")) == ["Jardiance"]
+    assert products_for(link("What does Norwick offer for T2D?")) == ["Orvenda"]
 
 
 def test_short_acronyms_do_not_fire_inside_words():
     """'PE' must not match 'prevention'; 'AF' must not match 'affects'."""
     from app.onto.link import link
     matched = {e["matched"] for e in link("This prevention program affects combined outcomes.")}
-    assert not {"PE", "AF", "BI", "HF"} & matched, f"false positives: {matched}"
+    assert not {"PE", "AF", "NP", "HF"} & matched, f"false positives: {matched}"
 
 
 if __name__ == "__main__":
