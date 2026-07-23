@@ -73,6 +73,16 @@ def ingest(data_glob: str) -> int:
             ))
             pid += 1
     c.upsert(COLLECTION, points)
+    # delete_collection() does not purge the embedded store: point ids restart at 0,
+    # so a shorter corpus silently leaves the previous run's surplus points alive and
+    # retrievable. Ingest reported success while search returned documents that no
+    # longer existed. Fail loudly instead.
+    stored = c.count(COLLECTION).count
+    if stored != len(points):
+        raise RuntimeError(
+            f"ingest wrote {len(points)} chunks but '{COLLECTION}' holds {stored}; "
+            f"stale points survived - delete {_QDRANT_PATH!r} and re-ingest"
+        )
     return len(points)
 
 
