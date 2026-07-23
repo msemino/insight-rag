@@ -10,7 +10,7 @@ full observability, a trained domain adapter, and a versioned deployment — all
 running on a single **24 GB NVIDIA GPU**.
 
 [![CI](https://github.com/msemino/insight-rag/actions/workflows/ci.yml/badge.svg)](https://github.com/msemino/insight-rag/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.13-blue)
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Local-first](https://img.shields.io/badge/inference-local--first-4aa3df)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -35,8 +35,6 @@ Professional (HCP) knowledge base** built from public product & regulatory
 information — no sensitive data.
 
 ---
-
-## What's inside
 
 ## Request path
 
@@ -73,10 +71,13 @@ thing to replace at a larger one.
 
 ---
 
+## What's inside
+
 | Capability | Implementation | Proof |
 |---|---|---|
 | **RAG** | chunking → local embeddings (nomic-embed) → **Qdrant** → grounded synthesis | 4 demo cases |
 | **Knowledge graph** | typed graph (products, classes, indications, reversal agents) + **hybrid GraphRAG** (vector + graph expansion + rerank) | `app/graph/` |
+| **Semantic layer** | **OWL/SKOS ontology** over the KG: OWL 2 RL reasoning, **SHACL** governance in CI, synonym-aware entity linking, SPARQL | [`app/onto/`](app/onto/) |
 | **Compliance prompting** | versioned system prompts: on-label only, fair balance, **scoped off-label refusal** | eval harness |
 | **Observability** | per-request trace store · p50/p95 latency · tokens · error rate · **compliance eval (CI-gated)** · dashboard | dashboard ↓ |
 | **Fine-tuning** | domain **LoRA adapter trained on a single 24 GB GPU** (bf16, rank 16) | A/B ↓ |
@@ -116,11 +117,36 @@ STRUCTURED FACTS (from knowledge graph):
 
 <p align="center"><img src="docs/dashboard.png" alt="Observability dashboard" width="900"></p>
 
-Compliance eval harness: **4/4 pass**, CI-gated. Offline unit tests: **5/5**.
+Compliance eval harness: **4/4 pass**, CI-gated. Offline unit tests: **13/13**
+(5 core + 8 ontology).
 
 ### 4 · Fine-tuning — a real adapter, real effect
 
 <p align="center"><img src="docs/ab_compliance.svg" alt="Compliance A/B" width="900"></p>
+
+### 5 · Semantic layer — what the graph derives that nobody wrote
+
+The KG is a flat triple table: it has no schema, no inference and no vocabulary, so
+entity linking by substring misses any question that uses an acronym or a clinical
+synonym. `app/onto/` lifts it into OWL/SKOS and closes that gap — measured, not claimed:
+
+| Check | Result |
+|---|---|
+| OWL 2 RL closure | 230 asserted triples → **688** (**+468 derived**) |
+| SHACL governance | asserted graph: **11 violations** → inferred graph: **conforms** |
+| Synonym-aware linking vs substring | **6 of 7** realistic HCP questions recovered |
+
+Two property chains do most of the work — declarative rules in a versioned `.ttl`,
+not code:
+
+```turtle
+ins:madeBy       owl:propertyChainAxiom ( ins:madeBy ins:hasMember ) .
+ins:hasDrugClass owl:propertyChainAxiom ( ins:hasDrugClass skos:broaderTransitive ) .
+```
+
+No source document says Jardiance is made by Boehringer Ingelheim — only that the
+alliance makes it. The reasoner derives the rest. Details, including the two defects
+the layer found in its own data, in [`app/onto/README.md`](app/onto/README.md).
 
 ---
 
@@ -136,6 +162,12 @@ python -m app.obs.evaluate               # compliance eval harness (CI-style)
 python -m app.obs.dashboard              # render the observability dashboard
 python tests/test_core.py                # offline unit tests (what CI runs)
 uvicorn app.api:app --port 8100          # versioned inference API
+
+python app/onto/build.py                 # lift the KG into the OWL/SKOS ontology
+python app/onto/reason.py                # OWL 2 RL closure + diff of what was derived
+python app/onto/validate.py              # SHACL, asserted vs inferred
+python app/onto/compare_linking.py       # substring vs ontology-aware entity linking
+python tests/test_onto.py                # ontology tests (also in CI)
 ```
 
 Fine-tuning (single 24 GB GPU): see [`finetune/`](finetune/) — dataset generator, native
@@ -150,6 +182,7 @@ app/
   llm.py            local-first LLM client (Ollama), backend-agnostic + traced
   rag/              chunking, Qdrant vector store, dense pipeline
   graph/            knowledge graph + hybrid GraphRAG (vector + graph + rerank)
+  onto/             OWL/SKOS ontology, OWL 2 RL reasoning, SHACL, SPARQL, linking
   obs/              trace store, metrics, compliance eval, HTML dashboard
   api.py            FastAPI versioned inference service
 prompts/            versioned compliance system prompts
@@ -173,7 +206,15 @@ docs/               architecture + showcase visuals
 This is a **reference implementation**, not a shipped product. The corpus is
 simulated (public info), and the LoRA adapter is a **proof-of-pipeline** trained
 on a small dataset — it demonstrates the effect, and hardens by extending the
-dataset. The knowledge graph runs on networkx with a Neo4j-ready schema.
+dataset. The knowledge graph runs on networkx with a Neo4j-ready schema, and the
+semantic layer runs in rdflib — neither has been exercised on a graph database.
+
+**Not affiliated with, endorsed by, or connected to any pharmaceutical company.**
+Product names appear only as realistic subject matter for a compliance-oriented
+retrieval demo. Every document under `data/` was written for this repository from
+public information and is marked *simulated*; none of it is, or is derived from,
+any company's internal, regulatory or promotional material. Nothing here is
+medical advice.
 
 ## Stack
 

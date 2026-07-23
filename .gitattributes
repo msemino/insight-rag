@@ -1,0 +1,5 @@
+# Normalise line endings so generated artefacts (kg.ttl) don't show up as
+# modified after every build on Windows.
+* text=auto eol=lf
+*.png binary
+*.svg text eol=lf
