@@ -1,0 +1,281 @@
+@prefix ins: <https://insight-rag.local/onto#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+skos:broader rdfs:subPropertyOf skos:broaderTransitive .
+
+<https://insight-rag.local/onto> a owl:Ontology ;
+    rdfs:label "InsightRAG HCP domain ontology" ;
+    owl:versionInfo "onto_v1" .
+
+ins:hasSubstance a owl:ObjectProperty ;
+    rdfs:label "has substance" ;
+    rdfs:domain ins:Product ;
+    rdfs:range ins:Substance ;
+    owl:inverseOf ins:substanceOf .
+
+ins:indicatedFor a owl:ObjectProperty ;
+    rdfs:label "indicated for" ;
+    rdfs:domain ins:Product ;
+    rdfs:range ins:Indication ;
+    owl:inverseOf ins:indicationOf .
+
+ins:jardiance a ins:Product ;
+    skos:prefLabel "Jardiance"@en ;
+    ins:hasDrugClass ins:sglt2-inhibitor ;
+    ins:hasSubstance ins:empagliflozin ;
+    ins:indicatedFor ins:chronic-kidney-disease-to-reduce-risk-of-progression,
+        ins:heart-failure-both-reduced-and-preserved-ejection-fraction-to-reduce-risk,
+        ins:type-2-diabetes-mellitus ;
+    ins:madeBy ins:boehringer-ingelheim-eli-lilly-alliance ;
+    ins:sourceDocument "jardiance.md" .
+
+ins:ofev a ins:Product ;
+    skos:prefLabel "Ofev"@en ;
+    ins:hasDrugClass ins:intracellular-tyrosine-kinase-inhibitor ;
+    ins:hasSubstance ins:nintedanib ;
+    ins:indicatedFor ins:idiopathic-pulmonary-fibrosis-ipf,
+        ins:other-chronic-fibrosing-interstitial-lung-diseases-with-a-progressive-phenotype,
+        ins:systemic-sclerosis-associated-interstitial-lung-disease-ssc-ild ;
+    ins:madeBy ins:boehringer-ingelheim ;
+    ins:sourceDocument "ofev.md" .
+
+ins:pradaxa a ins:Product ;
+    skos:prefLabel "Pradaxa"@en ;
+    ins:hasDrugClass ins:direct-oral-anticoagulant ;
+    ins:hasSubstance ins:dabigatran-etexilate ;
+    ins:indicatedFor ins:stroke-prevention-in-non-valvular-atrial-fibrillation,
+        ins:treatment-and-secondary-prevention-of-deep-vein-thrombosis-and-pulmonary-embolism ;
+    ins:madeBy ins:boehringer-ingelheim ;
+    ins:reversedBy ins:idarucizumab ;
+    ins:sourceDocument "pradaxa.md" .
+
+ins:reversedBy a owl:ObjectProperty ;
+    rdfs:label "reversed by" ;
+    rdfs:domain ins:Product ;
+    rdfs:range ins:ReversalAgent ;
+    owl:inverseOf ins:reverses .
+
+ins:spiriva a ins:Product ;
+    skos:prefLabel "Spiriva"@en ;
+    ins:hasDrugClass ins:long-acting-muscarinic-antagonist ;
+    ins:hasSubstance ins:tiotropium ;
+    ins:indicatedFor ins:asthma,
+        ins:chronic-obstructive-pulmonary-disease-copd ;
+    ins:madeBy ins:boehringer-ingelheim ;
+    ins:sourceDocument "spiriva.md" .
+
+ins:anticoagulant a ins:DrugClass ;
+    skos:altLabel "blood thinner"@en ;
+    skos:broader ins:antithrombotic-agent ;
+    skos:prefLabel "Anticoagulant"@en .
+
+ins:antidiabetic-agent a ins:DrugClass ;
+    skos:altLabel "glucose-lowering agent"@en ;
+    skos:prefLabel "Antidiabetic agent"@en .
+
+ins:antithrombotic-agent a ins:DrugClass ;
+    skos:prefLabel "Antithrombotic agent"@en .
+
+ins:asthma a ins:Indication ;
+    skos:altLabel "asthmatic"@en ;
+    skos:prefLabel "Asthma"@en .
+
+ins:boehringer-ingelheim-eli-lilly-alliance a ins:Alliance,
+        ins:Organization ;
+    skos:altLabel "BI-Lilly alliance"@en,
+        "the Diabetes Alliance"@en ;
+    skos:prefLabel "Boehringer Ingelheim / Eli Lilly alliance"@en ;
+    ins:hasMember ins:boehringer-ingelheim,
+        ins:eli-lilly .
+
+ins:bronchodilator a ins:DrugClass ;
+    skos:prefLabel "Bronchodilator"@en .
+
+ins:chronic-kidney-disease-to-reduce-risk-of-progression a ins:Indication ;
+    skos:altLabel "CKD"@en,
+        "chronic kidney disease"@en,
+        "renal impairment"@en ;
+    skos:prefLabel "Chronic kidney disease to reduce risk of progression"@en .
+
+ins:chronic-obstructive-pulmonary-disease-copd a ins:Indication ;
+    skos:altLabel "COPD"@en,
+        "chronic obstructive pulmonary disease"@en,
+        "emphysema"@en ;
+    skos:prefLabel "Chronic obstructive pulmonary disease (COPD)"@en .
+
+ins:dabigatran-etexilate a ins:Substance ;
+    skos:altLabel "dabigatran"@en ;
+    skos:prefLabel "dabigatran etexilate"@en .
+
+ins:direct-oral-anticoagulant a ins:DrugClass ;
+    skos:altLabel "DOAC"@en,
+        "NOAC"@en ;
+    skos:broader ins:anticoagulant ;
+    skos:prefLabel "Direct oral anticoagulant"@en .
+
+ins:drugClassOf a owl:ObjectProperty ;
+    rdfs:label "drug class of" .
+
+ins:eli-lilly a ins:LegalEntity ;
+    skos:altLabel "Eli Lilly"@en,
+        "Lilly"@en ;
+    skos:prefLabel "Eli Lilly and Company"@en .
+
+ins:empagliflozin a ins:Substance ;
+    skos:altLabel "Jardiance INN"@en ;
+    skos:prefLabel "empagliflozin"@en .
+
+ins:hasDrugClass a owl:ObjectProperty ;
+    rdfs:label "has drug class" ;
+    rdfs:domain ins:Product ;
+    rdfs:range ins:DrugClass ;
+    owl:inverseOf ins:drugClassOf ;
+    owl:propertyChainAxiom ( ins:hasDrugClass skos:broaderTransitive ) .
+
+ins:hasMember a owl:ObjectProperty ;
+    rdfs:label "has member" ;
+    rdfs:domain ins:Alliance ;
+    rdfs:range ins:LegalEntity .
+
+ins:heart-failure-both-reduced-and-preserved-ejection-fraction-to-reduce-risk a ins:Indication ;
+    skos:altLabel "HF"@en,
+        "HFpEF"@en,
+        "HFrEF"@en,
+        "heart failure"@en ;
+    skos:prefLabel "Heart failure (both reduced and preserved ejection fraction) to reduce risk"@en .
+
+ins:idarucizumab a ins:ReversalAgent ;
+    skos:altLabel "Praxbind"@en,
+        "antidote"@en,
+        "reversal agent"@en ;
+    skos:prefLabel "Idarucizumab"@en .
+
+ins:idiopathic-pulmonary-fibrosis-ipf a ins:Indication ;
+    skos:altLabel "IPF"@en,
+        "pulmonary fibrosis"@en ;
+    skos:prefLabel "Idiopathic pulmonary fibrosis (IPF)"@en .
+
+ins:indicationOf a owl:ObjectProperty ;
+    rdfs:label "indication of" .
+
+ins:intracellular-tyrosine-kinase-inhibitor a ins:DrugClass ;
+    skos:altLabel "TKI"@en,
+        "tyrosine kinase inhibitor"@en ;
+    skos:broader ins:kinase-inhibitor ;
+    skos:prefLabel "Intracellular tyrosine kinase inhibitor"@en .
+
+ins:kinase-inhibitor a ins:DrugClass ;
+    skos:prefLabel "Kinase inhibitor"@en .
+
+ins:long-acting-muscarinic-antagonist a ins:DrugClass ;
+    skos:altLabel "LAMA"@en,
+        "anticholinergic bronchodilator"@en ;
+    skos:broader ins:bronchodilator ;
+    skos:prefLabel "Long-acting muscarinic antagonist"@en .
+
+ins:madeBy a owl:ObjectProperty ;
+    rdfs:label "made by" ;
+    rdfs:domain ins:Product ;
+    rdfs:range ins:Organization ;
+    owl:inverseOf ins:manufactures ;
+    owl:propertyChainAxiom ( ins:madeBy ins:hasMember ) .
+
+ins:manufactures a owl:ObjectProperty ;
+    rdfs:label "manufactures" .
+
+ins:nintedanib a ins:Substance ;
+    skos:prefLabel "nintedanib"@en .
+
+ins:other-chronic-fibrosing-interstitial-lung-diseases-with-a-progressive-phenotype a ins:Indication ;
+    skos:altLabel "PPF"@en,
+        "progressive fibrosing ILD"@en,
+        "progressive pulmonary fibrosis"@en ;
+    skos:prefLabel "Other chronic fibrosing interstitial lung diseases with a progressive phenotype"@en .
+
+ins:reverses a owl:ObjectProperty ;
+    rdfs:label "reverses" .
+
+ins:sglt2-inhibitor a ins:DrugClass ;
+    skos:altLabel "SGLT2"@en,
+        "gliflozin"@en,
+        "sodium-glucose co-transporter 2 inhibitor"@en ;
+    skos:broader ins:antidiabetic-agent ;
+    skos:prefLabel "SGLT2 inhibitor"@en .
+
+ins:stroke-prevention-in-non-valvular-atrial-fibrillation a ins:Indication ;
+    skos:altLabel "AF"@en,
+        "NVAF"@en,
+        "atrial fibrillation"@en,
+        "stroke prevention"@en ;
+    skos:prefLabel "Stroke prevention in non-valvular atrial fibrillation"@en .
+
+ins:substanceOf a owl:ObjectProperty ;
+    rdfs:label "substance of" .
+
+ins:systemic-sclerosis-associated-interstitial-lung-disease-ssc-ild a ins:Indication ;
+    skos:altLabel "SSc-ILD"@en,
+        "scleroderma lung disease"@en,
+        "systemic sclerosis"@en ;
+    skos:prefLabel "Systemic sclerosis-associated interstitial lung disease (SSc-ILD)"@en .
+
+ins:tiotropium a ins:Substance ;
+    skos:prefLabel "tiotropium"@en .
+
+ins:treatment-and-secondary-prevention-of-deep-vein-thrombosis-and-pulmonary-embolism a ins:Indication ;
+    skos:altLabel "DVT"@en,
+        "PE"@en,
+        "VTE"@en,
+        "deep vein thrombosis"@en,
+        "venous thromboembolism"@en ;
+    skos:prefLabel "Treatment and secondary prevention of deep vein thrombosis and pulmonary embolism"@en .
+
+ins:type-2-diabetes-mellitus a ins:Indication ;
+    skos:altLabel "T2D"@en,
+        "T2DM"@en,
+        "diabetes"@en,
+        "type 2 diabetes"@en ;
+    skos:prefLabel "Type 2 diabetes mellitus"@en .
+
+skos:broaderTransitive a owl:TransitiveProperty .
+
+ins:Alliance a owl:Class ;
+    rdfs:label "Alliance" ;
+    rdfs:comment "A co-marketing arrangement between legal entities. Not itself an authorisation holder." ;
+    rdfs:subClassOf ins:Organization .
+
+ins:ReversalAgent a owl:Class ;
+    rdfs:label "Reversal agent" .
+
+ins:LegalEntity a owl:Class ;
+    rdfs:label "Legal entity" ;
+    rdfs:comment "A company that can hold a marketing authorisation." ;
+    rdfs:subClassOf ins:Organization .
+
+ins:boehringer-ingelheim a ins:LegalEntity,
+        ins:Organization ;
+    skos:altLabel "BI"@en,
+        "Boehringer"@en ;
+    skos:prefLabel "Boehringer Ingelheim"@en .
+
+ins:Organization a owl:Class ;
+    rdfs:label "Organization" .
+
+ins:Substance a owl:Class ;
+    rdfs:label "Substance" ;
+    rdfs:comment "Active substance (INN / generic name)." .
+
+ins:Product a owl:Class ;
+    rdfs:label "Product" ;
+    rdfs:comment "A marketed medicinal product identified by its brand name." .
+
+ins:DrugClass a owl:Class ;
+    rdfs:label "Drug class" ;
+    rdfs:subClassOf skos:Concept .
+
+ins:Indication a owl:Class ;
+    rdfs:label "Indication" ;
+    rdfs:subClassOf skos:Concept .
+

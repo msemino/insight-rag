@@ -1,0 +1,180 @@
+# InsightRAG domain ontology (TBox) — OWL 2 RL + SKOS
+#
+# The networkx KG (app/graph/kg.py) is a flat, untyped triple store: strings
+# linked by string relations. This file is the *schema* those triples conform
+# to, and it adds the three things a flat graph cannot express:
+#
+#   1. A controlled vocabulary with synonyms (skos:altLabel) — so "COPD" or
+#      "atrial fibrillation" link to the right entity even though the canonical
+#      label is a long clinical phrase.
+#   2. A drug-class taxonomy (skos:broader) — so a question about
+#      "anticoagulants" reaches a product only typed as a DOAC.
+#   3. Identity resolution via a property chain — so a product marketed by an
+#      alliance is also, by inference, marketed by each member company.
+#
+# Everything asserted here is public product information, kept deliberately
+# small: this is a schema demo, not a pharma reference vocabulary. A real
+# deployment would map these concepts to SNOMED CT / MedDRA / RxNorm / IDMP
+# rather than mint local URIs.
+
+@prefix ins:  <https://insight-rag.local/onto#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+<https://insight-rag.local/onto> a owl:Ontology ;
+    rdfs:label "InsightRAG HCP domain ontology" ;
+    owl:versionInfo "onto_v1" .
+
+################################################################################
+# Classes
+################################################################################
+
+ins:Product        a owl:Class ; rdfs:label "Product" ;
+    rdfs:comment "A marketed medicinal product identified by its brand name." .
+ins:Substance      a owl:Class ; rdfs:label "Substance" ;
+    rdfs:comment "Active substance (INN / generic name)." .
+ins:DrugClass      a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Drug class" .
+ins:Indication     a owl:Class ; rdfs:subClassOf skos:Concept ; rdfs:label "Indication" .
+ins:ReversalAgent  a owl:Class ; rdfs:label "Reversal agent" .
+
+ins:Organization   a owl:Class ; rdfs:label "Organization" .
+ins:LegalEntity    a owl:Class ; rdfs:subClassOf ins:Organization ; rdfs:label "Legal entity" ;
+    rdfs:comment "A company that can hold a marketing authorisation." .
+ins:Alliance       a owl:Class ; rdfs:subClassOf ins:Organization ; rdfs:label "Alliance" ;
+    rdfs:comment "A co-marketing arrangement between legal entities. Not itself an authorisation holder." .
+
+################################################################################
+# Object properties (with inverses — the flat KG has no way back)
+################################################################################
+
+ins:hasSubstance  a owl:ObjectProperty ; rdfs:label "has substance" ;
+    rdfs:domain ins:Product ; rdfs:range ins:Substance ; owl:inverseOf ins:substanceOf .
+ins:substanceOf   a owl:ObjectProperty ; rdfs:label "substance of" .
+
+ins:hasDrugClass  a owl:ObjectProperty ; rdfs:label "has drug class" ;
+    rdfs:domain ins:Product ; rdfs:range ins:DrugClass ; owl:inverseOf ins:drugClassOf .
+ins:drugClassOf   a owl:ObjectProperty ; rdfs:label "drug class of" .
+
+ins:madeBy        a owl:ObjectProperty ; rdfs:label "made by" ;
+    rdfs:domain ins:Product ; rdfs:range ins:Organization ; owl:inverseOf ins:manufactures .
+ins:manufactures  a owl:ObjectProperty ; rdfs:label "manufactures" .
+
+ins:indicatedFor  a owl:ObjectProperty ; rdfs:label "indicated for" ;
+    rdfs:domain ins:Product ; rdfs:range ins:Indication ; owl:inverseOf ins:indicationOf .
+ins:indicationOf  a owl:ObjectProperty ; rdfs:label "indication of" .
+
+ins:reversedBy    a owl:ObjectProperty ; rdfs:label "reversed by" ;
+    rdfs:domain ins:Product ; rdfs:range ins:ReversalAgent ; owl:inverseOf ins:reverses .
+ins:reverses      a owl:ObjectProperty ; rdfs:label "reverses" .
+
+ins:hasMember     a owl:ObjectProperty ; rdfs:label "has member" ;
+    rdfs:domain ins:Alliance ; rdfs:range ins:LegalEntity .
+
+################################################################################
+# Inference rules (OWL 2 RL property chains — this is where the payoff is)
+################################################################################
+
+# A product marketed by an alliance is marketed by each member company.
+#   Jardiance madeBy Alliance . Alliance hasMember BI  ==>  Jardiance madeBy BI
+ins:madeBy owl:propertyChainAxiom ( ins:madeBy ins:hasMember ) .
+
+# A product of a narrow class is also of every broader class.
+#   Pradaxa hasDrugClass DOAC . DOAC broaderTransitive Anticoagulant
+#     ==> Pradaxa hasDrugClass Anticoagulant
+ins:hasDrugClass owl:propertyChainAxiom ( ins:hasDrugClass skos:broaderTransitive ) .
+
+# The two SKOS axioms the chain above depends on. They are part of the SKOS
+# vocabulary, but the reasoner only sees what is in the graph — asserting them
+# here is cheaper than owl:imports-ing the whole scheme, and makes the
+# dependency explicit. Without these, skos:broader is inert and the chain
+# silently derives nothing.
+skos:broaderTransitive a owl:TransitiveProperty .
+skos:broader rdfs:subPropertyOf skos:broaderTransitive .
+
+################################################################################
+# Organizations
+################################################################################
+
+ins:boehringer-ingelheim a ins:LegalEntity ;
+    skos:prefLabel "Boehringer Ingelheim"@en ;
+    skos:altLabel "BI"@en, "Boehringer"@en .
+
+ins:eli-lilly a ins:LegalEntity ;
+    skos:prefLabel "Eli Lilly and Company"@en ;
+    skos:altLabel "Lilly"@en, "Eli Lilly"@en .
+
+ins:boehringer-ingelheim-eli-lilly-alliance a ins:Alliance ;
+    skos:prefLabel "Boehringer Ingelheim / Eli Lilly alliance"@en ;
+    skos:altLabel "BI-Lilly alliance"@en, "the Diabetes Alliance"@en ;
+    ins:hasMember ins:boehringer-ingelheim, ins:eli-lilly .
+
+################################################################################
+# Drug-class taxonomy (skos:broader — narrower concepts point up)
+################################################################################
+
+ins:antithrombotic-agent a ins:DrugClass ; skos:prefLabel "Antithrombotic agent"@en .
+ins:anticoagulant a ins:DrugClass ; skos:prefLabel "Anticoagulant"@en ;
+    skos:altLabel "blood thinner"@en ;
+    skos:broader ins:antithrombotic-agent .
+ins:direct-oral-anticoagulant skos:altLabel "DOAC"@en, "NOAC"@en ;
+    skos:broader ins:anticoagulant .
+
+ins:antidiabetic-agent a ins:DrugClass ; skos:prefLabel "Antidiabetic agent"@en ;
+    skos:altLabel "glucose-lowering agent"@en .
+ins:sglt2-inhibitor skos:altLabel "SGLT2"@en, "gliflozin"@en, "sodium-glucose co-transporter 2 inhibitor"@en ;
+    skos:broader ins:antidiabetic-agent .
+
+ins:bronchodilator a ins:DrugClass ; skos:prefLabel "Bronchodilator"@en .
+ins:long-acting-muscarinic-antagonist skos:altLabel "LAMA"@en, "anticholinergic bronchodilator"@en ;
+    skos:broader ins:bronchodilator .
+
+ins:kinase-inhibitor a ins:DrugClass ; skos:prefLabel "Kinase inhibitor"@en .
+ins:intracellular-tyrosine-kinase-inhibitor skos:altLabel "TKI"@en, "tyrosine kinase inhibitor"@en ;
+    skos:broader ins:kinase-inhibitor .
+
+################################################################################
+# Synonyms for indications — the entity-linking payoff
+#
+# The canonical labels come from the source documents and are long clinical
+# phrases. A real HCP question never contains them verbatim.
+################################################################################
+
+ins:chronic-obstructive-pulmonary-disease-copd
+    skos:altLabel "COPD"@en, "chronic obstructive pulmonary disease"@en, "emphysema"@en .
+
+ins:idiopathic-pulmonary-fibrosis-ipf
+    skos:altLabel "IPF"@en, "pulmonary fibrosis"@en .
+
+ins:systemic-sclerosis-associated-interstitial-lung-disease-ssc-ild
+    skos:altLabel "SSc-ILD"@en, "scleroderma lung disease"@en, "systemic sclerosis"@en .
+
+ins:other-chronic-fibrosing-interstitial-lung-diseases-with-a-progressive-phenotype
+    skos:altLabel "PPF"@en, "progressive pulmonary fibrosis"@en, "progressive fibrosing ILD"@en .
+
+ins:type-2-diabetes-mellitus
+    skos:altLabel "T2D"@en, "T2DM"@en, "type 2 diabetes"@en, "diabetes"@en .
+
+ins:heart-failure-both-reduced-and-preserved-ejection-fraction-to-reduce-risk
+    skos:altLabel "heart failure"@en, "HF"@en, "HFrEF"@en, "HFpEF"@en .
+
+ins:chronic-kidney-disease-to-reduce-risk-of-progression
+    skos:altLabel "CKD"@en, "chronic kidney disease"@en, "renal impairment"@en .
+
+ins:stroke-prevention-in-non-valvular-atrial-fibrillation
+    skos:altLabel "atrial fibrillation"@en, "AF"@en, "NVAF"@en, "stroke prevention"@en .
+
+ins:treatment-and-secondary-prevention-of-deep-vein-thrombosis-and-pulmonary-embolism
+    skos:altLabel "DVT"@en, "PE"@en, "VTE"@en, "venous thromboembolism"@en, "deep vein thrombosis"@en .
+
+ins:asthma skos:altLabel "asthmatic"@en .
+
+################################################################################
+# Reversal agents and substances — brand/INN synonyms
+################################################################################
+
+ins:idarucizumab skos:altLabel "Praxbind"@en, "antidote"@en, "reversal agent"@en .
+ins:empagliflozin skos:altLabel "Jardiance INN"@en .
+ins:dabigatran-etexilate skos:altLabel "dabigatran"@en .

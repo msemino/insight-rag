@@ -4,5 +4,9 @@ networkx
 fastapi
 uvicorn
 pydantic
+# Semantic layer: OWL/SKOS ontology, OWL 2 RL reasoning, SHACL governance.
+rdflib
+owlrl
+pyshacl
 # Fine-tuning (optional, GPU): see finetune/README.md
 # unsloth

@@ -1,0 +1,97 @@
+# SHACL shapes — data-quality contract for the product graph.
+#
+# An ontology without validation is a suggestion. These shapes are the part that
+# turns it into governance: they run in CI and fail the build when the graph
+# stops describing what a regulated answer needs to cite.
+#
+# Note ProductShape/madeBy: it is written against the *inferred* graph on
+# purpose. Asserted-only, Jardiance violates it — its document names a
+# co-marketing alliance, which is not a legal entity and cannot hold a
+# marketing authorisation. The property chain in ontology.ttl is what resolves
+# that identity. Running validation before and after reasoning is the cheapest
+# demonstration of what the reasoner is actually buying.
+
+@prefix ins:  <https://insight-rag.local/onto#> .
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ins:ProductShape a sh:NodeShape ;
+    sh:targetClass ins:Product ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "Every product needs exactly one canonical label to cite." ;
+    ] ;
+
+    sh:property [
+        sh:path ins:sourceDocument ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Every product must trace back to a source document — no citation, no answer." ;
+    ] ;
+
+    sh:property [
+        sh:path ins:hasSubstance ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A product must map to exactly one active substance." ;
+    ] ;
+
+    sh:property [
+        sh:path ins:indicatedFor ;
+        sh:minCount 1 ;
+        sh:message "A product with no approved indication cannot be discussed on-label." ;
+    ] ;
+
+    sh:property [
+        sh:path ins:madeBy ;
+        sh:qualifiedValueShape [ sh:class ins:LegalEntity ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "A product must resolve to at least one legal entity; an alliance label is not an authorisation holder." ;
+    ] .
+
+# Label hygiene, applied to anything that carries a preferred label.
+#
+# Caught a real defect: the TBox wrote plain literals and the ABox builder wrote
+# @en ones, so several entities ended up with two prefLabels that are equal as
+# strings and distinct as RDF terms. Nothing crashed — SPARQL just started
+# returning every organization row twice. This shape is why it cannot come back.
+ins:LabelShape a sh:NodeShape ;
+    sh:targetSubjectsOf skos:prefLabel ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:maxCount 1 ;
+        sh:message "Duplicate preferred label: an entity has exactly one canonical name." ;
+    ] ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:languageIn ( "en" ) ;
+        sh:message "Labels must be language-tagged; untagged literals silently split the entity." ;
+    ] .
+
+ins:IndicationShape a sh:NodeShape ;
+    sh:targetClass ins:Indication ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:message "Indications must carry a canonical label." ;
+    ] ;
+
+    sh:property [
+        sh:path ins:indicationOf ;
+        sh:minCount 1 ;
+        sh:message "Orphan indication: no product points at it (stale or misspelled concept)." ;
+    ] .
+
+ins:DrugClassShape a sh:NodeShape ;
+    sh:targetClass ins:DrugClass ;
+
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:minCount 1 ;
+        sh:message "Drug-class concepts must carry a canonical label." ;
+    ] .
